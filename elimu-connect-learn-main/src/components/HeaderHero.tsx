@@ -1,0 +1,139 @@
+import React from "react";
+import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "animate.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faBell, faSearch, faStar, faChartLine } from "@fortawesome/free-solid-svg-icons";
+import RegisterButton from "./RegisterButton";
+import CourseSearchSection from "./CourseSearchSection";
+
+const HeaderHero = () => {
+  const navLinks = [
+    { label: "Home", path: "/" },
+    { label: "Course", path: "/courses" },
+    { label: "Opportunity", path: "/opportunities" },
+    { label: "About Us", path: "/about" }
+  ];
+
+  return (
+    <header className="bg-[#F5F5F5] text-[#0D3B66] min-h-screen flex flex-col relative overflow-visible pb-24 md:pb-32">
+      {/* Navbar */}
+      <nav className="container d-flex justify-content-between align-items-center py-3 bg-[#F5F5F5] shadow-sm">
+        {/* Logo */}
+        <div className="d-flex align-items-center">
+          <Link to="/" style={{ textDecoration: 'none' }}>
+            <img 
+              src="/logo.png" 
+              alt="Elimu Space" 
+              className="h-20 w-auto"
+            />
+          </Link>
+        </div>
+
+        {/* Nav Menu */}
+        <ul className="d-none d-md-flex gap-4 list-unstyled mb-0">
+          {navLinks.map((item) => (
+            <li key={item.label}>
+              <Link
+                to={item.path}
+                className="relative group cursor-pointer font-bold text-[#0D3B66]
+                           transition-all duration-300 ease-out
+                           hover:-translate-y-[2px] hover:scale-105 hover:text-[#0A2A4A]"
+                style={{ textDecoration: 'none', display: 'inline-block' }}
+              >
+                {item.label}
+                {/* Animated underline */}
+                <span className="absolute left-1/2 -translate-x-1/2 bottom-[-4px] w-0 h-[2px]
+                               bg-[#0D3B66] transition-all duration-300 ease-out
+                               group-hover:w-full"></span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        {/* Right Side Buttons */}
+        <div className="d-flex align-items-center gap-3">
+          {/* Icons */}
+          <button className="p-2 text-[#0D3B66] hover:text-[#0A2A4A] transition-colors duration-200" aria-label="Search">
+            <FontAwesomeIcon icon={faSearch} className="w-5 h-5" />
+          </button>
+          <button className="p-2 text-[#0D3B66] hover:text-[#0A2A4A] transition-colors duration-200" aria-label="Notifications">
+            <FontAwesomeIcon icon={faBell} className="w-5 h-5" />
+          </button>
+          <button className="p-2 text-[#0D3B66] hover:text-[#0A2A4A] transition-colors duration-200" aria-label="User Account">
+            <FontAwesomeIcon icon={faUser} className="w-5 h-5" />
+          </button>
+          <RegisterButton />
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <div className="container flex flex-column flex-md-row align-items-center justify-content-between py-5 position-relative">
+        {/* Hero Text */}
+        <div className="text-start animate__animated animate__fadeInLeft">
+          <p className="uppercase tracking-wide text-sm mb-2 text-[#0D3B66] opacity-80">E-learning Platform</p>
+          <h1 className="fw-bold text-3xl md:text-5xl mb-3 leading-tight text-[#0D3B66]">
+            Best Platform for Personal <br /> and Online Private Tutor
+          </h1>
+          <p className="text-[#0D3B66] opacity-70 mb-4">
+            We're a nonprofit with the mission to provide a free, world-class education for anyone, anywhere.
+          </p>
+          <div className="d-flex gap-3">
+            <button className="btn fw-bold px-4 py-2 rounded shadow text-white" style={{ backgroundColor: '#0D3B66', border: 'none' }}>
+              Watch
+            </button>
+            <button className="btn px-4 py-2 rounded" style={{ backgroundColor: 'transparent', border: '2px solid #0D3B66', color: '#0D3B66' }}>
+              Learn More
+            </button>
+          </div>
+        </div>
+
+        {/* Hero Banner Image */}
+        <div className="mt-5 mt-md-0 animate__animated animate__fadeInRight position-relative">
+          <div className="w-[300px] h-[400px] rounded-lg shadow-lg overflow-hidden floating-animation">
+            <img 
+              src="/gallery/banner-img.png" 
+              alt="Elimu Space Learning Platform" 
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          {/* Floating Stats */}
+          <div className="position-absolute top-4 end-4 bg-white text-[#0D3B66] rounded-lg shadow p-2 px-3 small animate__animated animate__fadeInUp" style={{ boxShadow: '0 4px 12px rgba(13, 59, 102, 0.15)' }}>
+            <FontAwesomeIcon icon={faStar} className="w-4 h-4 text-yellow-500" /> 80.9% <br />
+            <span className="text-xs opacity-70">5-star reviews</span>
+          </div>
+          <div className="position-absolute bottom-4 start-4 bg-white text-[#0D3B66] rounded-lg shadow p-2 px-3 small animate__animated animate__fadeInUp" style={{ boxShadow: '0 4px 12px rgba(13, 59, 102, 0.15)' }}>
+            <FontAwesomeIcon icon={faChartLine} className="w-4 h-4 text-green-500" /> 90.8% <br />
+            <span className="text-xs opacity-70">positive feedback</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Course Search Section - Overlapping */}
+      <CourseSearchSection />
+      
+      {/* Floating Animation Styles */}
+      <style>{`
+        .floating-animation {
+          animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+          0%, 100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
+        }
+        
+        .floating-animation:hover {
+          animation-duration: 1.5s;
+        }
+      `}</style>
+    </header>
+  );
+};
+
+export default HeaderHero;
