@@ -1,19 +1,35 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "animate.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faBell, faSearch, faStar, faChartLine } from "@fortawesome/free-solid-svg-icons";
 import RegisterButton from "./RegisterButton";
 import CourseSearchSection from "./CourseSearchSection";
+import { useAuth } from "@/contexts/AuthContext";
 
 const HeaderHero = () => {
-  const navLinks = [
-    { label: "Home", path: "/" },
-    { label: "Course", path: "/courses" },
-    { label: "Opportunity", path: "/opportunities" },
-    { label: "About Us", path: "/about" }
-  ];
+  const { user, isAuthenticated } = useAuth();
+  const location = useLocation();
+
+  // Navigation links based on auth status
+  const navLinks = isAuthenticated
+    ? [
+        { label: "Dashboard", path: "/dashboard" },
+        { label: "Course", path: "/courses" },
+        { label: "Opportunity", path: "/opportunities" },
+        { label: "About Us", path: "/about" }
+      ]
+    : [
+        { label: "Home", path: "/" },
+        { label: "Course", path: "/courses" },
+        { label: "Opportunity", path: "/opportunities" },
+        { label: "About Us", path: "/about" }
+      ];
+
+  const isActive = (path: string) => {
+    return location.pathname === path;
+  };
 
   return (
     <header className="bg-[#F5F5F5] text-[#0D3B66] min-h-screen flex flex-col relative overflow-visible pb-24 md:pb-32">
@@ -36,16 +52,18 @@ const HeaderHero = () => {
             <li key={item.label}>
               <Link
                 to={item.path}
-                className="relative group cursor-pointer font-bold text-[#0D3B66]
-                           transition-all duration-300 ease-out
-                           hover:-translate-y-[2px] hover:scale-105 hover:text-[#0A2A4A]"
+                className={`relative group cursor-pointer font-bold transition-all duration-300 ease-out
+                           hover:-translate-y-[2px] hover:scale-105 hover:text-[#0A2A4A] ${
+                             isActive(item.path) ? 'text-[#F97316]' : 'text-[#0D3B66]'
+                           }`}
                 style={{ textDecoration: 'none', display: 'inline-block' }}
               >
                 {item.label}
                 {/* Animated underline */}
-                <span className="absolute left-1/2 -translate-x-1/2 bottom-[-4px] w-0 h-[2px]
-                               bg-[#0D3B66] transition-all duration-300 ease-out
-                               group-hover:w-full"></span>
+                <span className={`absolute left-1/2 -translate-x-1/2 bottom-[-4px] h-[2px]
+                               transition-all duration-300 ease-out ${
+                                 isActive(item.path) ? 'w-full bg-[#F97316]' : 'w-0 bg-[#0D3B66] group-hover:w-full'
+                               }`}></span>
               </Link>
             </li>
           ))}
@@ -57,13 +75,35 @@ const HeaderHero = () => {
           <button className="p-2 text-[#0D3B66] hover:text-[#0A2A4A] transition-colors duration-200" aria-label="Search">
             <FontAwesomeIcon icon={faSearch} className="w-5 h-5" />
           </button>
-          <button className="p-2 text-[#0D3B66] hover:text-[#0A2A4A] transition-colors duration-200" aria-label="Notifications">
-            <FontAwesomeIcon icon={faBell} className="w-5 h-5" />
-          </button>
-          <button className="p-2 text-[#0D3B66] hover:text-[#0A2A4A] transition-colors duration-200" aria-label="User Account">
-            <FontAwesomeIcon icon={faUser} className="w-5 h-5" />
-          </button>
-          <RegisterButton />
+          {isAuthenticated && (
+            <Link 
+              to="/dashboard" 
+              className="p-2 text-[#0D3B66] hover:text-[#0A2A4A] transition-colors duration-200" 
+              aria-label="Notifications"
+            >
+              <FontAwesomeIcon icon={faBell} className="w-5 h-5" />
+            </Link>
+          )}
+          {isAuthenticated ? (
+            <Link 
+              to="/dashboard" 
+              className="p-2 text-[#0D3B66] hover:text-[#0A2A4A] transition-colors duration-200 flex items-center gap-2" 
+              aria-label="User Account"
+              title={user?.full_name || user?.username}
+            >
+              <FontAwesomeIcon icon={faUser} className="w-5 h-5" />
+              <span className="text-sm font-semibold d-none d-lg-inline">{user?.full_name || user?.username}</span>
+            </Link>
+          ) : (
+            <Link 
+              to="/login" 
+              className="p-2 text-[#0D3B66] hover:text-[#0A2A4A] transition-colors duration-200" 
+              aria-label="User Account"
+            >
+              <FontAwesomeIcon icon={faUser} className="w-5 h-5" />
+            </Link>
+          )}
+          {!isAuthenticated && <RegisterButton />}
         </div>
       </nav>
 
@@ -89,8 +129,8 @@ const HeaderHero = () => {
         </div>
 
         {/* Hero Banner Image */}
-        <div className="mt-5 mt-md-0 animate__animated animate__fadeInRight position-relative">
-          <div className="w-[300px] h-[400px] rounded-lg shadow-lg overflow-hidden floating-animation">
+        <div className="mt-52 mt-md-0 animate__animated animate__fadeInRight position-relative">
+          <div className="w-[300px] h-[400px] overflow-hidden floating-animation">
             <img 
               src="/gallery/banner-img.png" 
               alt="Elimu Space Learning Platform" 
@@ -99,13 +139,13 @@ const HeaderHero = () => {
           </div>
 
           {/* Floating Stats */}
-          <div className="position-absolute top-4 end-4 bg-white text-[#0D3B66] rounded-lg shadow p-2 px-3 small animate__animated animate__fadeInUp" style={{ boxShadow: '0 4px 12px rgba(13, 59, 102, 0.15)' }}>
+          <div className="position-absolute top-1 end-0 bg-white text-[#0D3B66] rounded-lg shadow p-2 px-3 small animate__animated animate__fadeInUp" style={{ boxShadow: '0 4px 12px rgba(13, 59, 102, 0.15)' }}>
             <FontAwesomeIcon icon={faStar} className="w-4 h-4 text-yellow-500" /> 80.9% <br />
-            <span className="text-xs opacity-70">5-star reviews</span>
+            <span className="text-xs opacity-70"><strong><b>positive feedback</b></strong></span>
           </div>
           <div className="position-absolute bottom-4 start-4 bg-white text-[#0D3B66] rounded-lg shadow p-2 px-3 small animate__animated animate__fadeInUp" style={{ boxShadow: '0 4px 12px rgba(13, 59, 102, 0.15)' }}>
-            <FontAwesomeIcon icon={faChartLine} className="w-4 h-4 text-green-500" /> 90.8% <br />
-            <span className="text-xs opacity-70">positive feedback</span>
+            <FontAwesomeIcon icon={faChartLine} className="w-4 h-4 text-green-500" /> 90% <br />
+            <span className="text-xs opacity-70"><strong><b>simple learn method</b></strong></span>
           </div>
         </div>
       </div>
@@ -124,12 +164,12 @@ const HeaderHero = () => {
             transform: translateY(0px);
           }
           50% {
-            transform: translateY(-10px);
+            transform: translateY(-15px);
           }
         }
         
         .floating-animation:hover {
-          animation-duration: 1.5s;
+          animation-duration: 1.7s;
         }
       `}</style>
     </header>

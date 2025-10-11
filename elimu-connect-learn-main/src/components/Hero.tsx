@@ -23,13 +23,13 @@ const Hero = () => {
           {/* Badge */}
           <div className="inline-flex items-center px-4 py-2 glass-card rounded-full text-sm font-medium text-primary">
             <FontAwesomeIcon icon={faTrophy} className="w-4 h-4 mr-2 text-tanzania-gold" />
-            #1 E-Learning Platform for Tanzanian Youth
+            E-Learning Platform for Empowering Youth
           </div>
 
           {/* Main Heading */}
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-poppins font-bold text-white leading-tight">
-            Jifunze Skills za
-            <span className="text-gradient-gold block">Kimaasai</span>
+            Jifunze Skills 
+            <span className="text-gradient-gold block">bora</span>
           </h1>
 
           {/* Subheading */}

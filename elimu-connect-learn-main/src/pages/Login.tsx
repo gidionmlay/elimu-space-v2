@@ -82,8 +82,8 @@ const Login: React.FC = () => {
           variant: 'default',
         });
         
-        // Get redirect path from location state or default to home
-        const from = (location.state as any)?.from?.pathname || '/';
+        // Get redirect path from location state or default to dashboard
+        const from = (location.state as any)?.from?.pathname || '/dashboard';
         navigate(from, { replace: true });
         
       } catch (error: any) {

@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuoteLeft, faStar, faChevronLeft, faChevronRight, faUser } from '@fortawesome/free-solid-svg-icons';
+import josephAvatar from '@/assets/avatars/joseph.jpg';
+import ibrahimAvatar from '@/assets/avatars/ibrahim.jpg';
+import aminaAvatar from '@/assets/avatars/amina.jpg';
+import graceAvatar from '@/assets/avatars/grace.jpg';
 
 interface Testimonial {
   id: number;
@@ -24,7 +28,7 @@ const TestimonialsCarousel: React.FC = () => {
       name: "Leonard R. Sebeo",
       role: "Recent Graduate",
       location: "Dar es Salaam",
-      avatar: "placeholder",
+      avatar: josephAvatar,
       quote:
         "Before joining Elimu Space, I knew nothing about writing a CV. But through the innovative approach, I learned how to create a strong CV and now have the confidence to apply for my own and even guide others on the basics of CV writing. I truly appreciate Elimu Space Platform for investing in both soft and technical skills that have shaped my learning journey.",
     },
@@ -33,7 +37,7 @@ const TestimonialsCarousel: React.FC = () => {
       name: "Rhobi Kilongo",
       role: "Campus Ambassador",
       location: "Mwanza",
-      avatar: "placeholder",
+      avatar: graceAvatar,
       quote:
         "Being part of Elimu Platform through programs like Campus Ambassador and Unikonekt has been an incredible experience. I've gained valuable skills, grown personally, and expanded my network. I highly recommend it to any young person preparing for the job market.",
     },
@@ -42,7 +46,7 @@ const TestimonialsCarousel: React.FC = () => {
       name: "Fadhil Athuman Katunzi",
       role: "University Graduate",
       location: "Arusha",
-      avatar: "placeholder",
+      avatar: ibrahimAvatar,
       quote:
         "After graduating university, I thought I knew how to present myself and write a good CV. But through Elimu Platform, I learned so much more — from making a strong impression on recruiters to understanding what employers really look for.",
     },
@@ -51,7 +55,7 @@ const TestimonialsCarousel: React.FC = () => {
       name: "Amina Hassan",
       role: "Freelance Developer",
       location: "Dodoma",
-      avatar: "placeholder",
+      avatar: aminaAvatar,
       quote:
         "Elimu Space helped me transition from university to freelancing. The web development courses were practical and taught in Swahili, making it easy to understand. Now I earn a good income working remotely.",
     },
@@ -60,7 +64,7 @@ const TestimonialsCarousel: React.FC = () => {
       name: "Joseph Mwangi",
       role: "Small Business Owner",
       location: "Mbeya",
-      avatar: "placeholder",
+      avatar: josephAvatar,
       quote:
         "The entrepreneurship course completely changed my mindset. I learned how to plan, budget, and market my business. In 6 months, my sales increased by 300%. This platform is a game-changer for young entrepreneurs.",
     },

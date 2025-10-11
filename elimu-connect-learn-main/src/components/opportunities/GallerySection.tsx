@@ -13,13 +13,13 @@ const GallerySection: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
   const images: GalleryImage[] = [
-    { id: '1', src: '/gallery/students-coding.jpg', alt: 'Students coding together', category: 'Learning' },
-    { id: '2', src: '/gallery/workshop.jpg', alt: 'Tech workshop session', category: 'Events' },
-    { id: '3', src: '/gallery/graduation.jpg', alt: 'Certificate ceremony', category: 'Achievements' },
-    { id: '4', src: '/gallery/mentorship.jpg', alt: 'Mentorship session', category: 'Mentorship' },
-    { id: '5', src: '/gallery/hackathon.jpg', alt: 'Hackathon participants', category: 'Events' },
-    { id: '6', src: '/gallery/collaboration.jpg', alt: 'Team collaboration', category: 'Learning' },
-    { id: '7', src: '/gallery/presentation.jpg', alt: 'Student presentation', category: 'Achievements' },
+    { id: '1', src: 'C:/Users/Gidion Mlay/Downloads/elimu space v2/elimu-connect-learn-main/src/assets/course1.png', alt: 'Students coding together', category: 'Learning' },
+    { id: '2', src: 'C:/Users/Gidion Mlay/Downloads/elimu space v2/elimu-connect-learn-main/src/assets/workshop.jpg', alt: 'Tech workshop session', category: 'Events' },
+    { id: '3', src: 'C:/Users/Gidion Mlay/Downloads/elimu space v2/elimu-connect-learn-main/src/assets/graduation.jpg', alt: 'Certificate ceremony', category: 'Achievements' },
+    { id: '4', src: 'C:/Users/Gidion Mlay/Downloads/elimu space v2/elimu-connect-learn-main/src/assets/mentorship.jpg', alt: 'Mentorship session', category: 'Mentorship' },
+    { id: '5', src: 'C:/Users/Gidion Mlay/Downloads/elimu space v2/elimu-connect-learn-main/src/assets/hackathon.jpg', alt: 'Hackathon participants', category: 'Events' },
+    { id: '6', src: 'C:/Users/Gidion Mlay/Downloads/elimu space v2/elimu-connect-learn-main/src/assets/collaboration.jpg', alt: 'Team collaboration', category: 'Learning' },
+    { id: '7', src: '/gallery/course2.png', alt: 'Student presentation', category: 'Achievements' },
     { id: '8', src: '/gallery/networking.jpg', alt: 'Networking event', category: 'Events' },
     { id: '9', src: '/gallery/lab.jpg', alt: 'Computer lab session', category: 'Learning' }
   ];
@@ -27,7 +27,7 @@ const GallerySection: React.FC = () => {
   const openLightbox = (index: number) => {
     setSelectedImage(index);
   };
-
+ 
   const closeLightbox = () => {
     setSelectedImage(null);
   };

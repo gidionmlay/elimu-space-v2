@@ -1,4 +1,0 @@
-"""
-Elimu Backend Apps
-"""
-

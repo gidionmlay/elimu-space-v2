@@ -26,7 +26,7 @@ const FinalCTA: React.FC = () => {
           marginBottom: '40px',
           lineHeight: '1.7'
         }}>
-          Be part of Tanzania's education revolution. Start learning with Elimu Space today.
+          Be part of Learner's education revolution. Start learning with Elimu Space today.
         </p>
 
         <button

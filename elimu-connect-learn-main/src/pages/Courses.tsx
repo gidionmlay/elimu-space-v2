@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faBell, faSearch } from '@fortawesome/free-solid-svg-icons';
 import FooterRedesign from '@/components/FooterRedesign';
@@ -10,12 +10,18 @@ import AllCoursesGrid from '@/components/modern/AllCoursesGrid';
 import RequestCourseCTA from '@/components/modern/RequestCourseCTA';
 
 const CoursesPage: React.FC = () => {
+  const location = useLocation();
+  
   const navLinks = [
     { label: "Home", path: "/" },
     { label: "Course", path: "/courses" },
-    { label: "Opportunity", path: "/opportunity" },
+    { label: "Opportunity", path: "/opportunities" },
     { label: "About Us", path: "/about" }
   ];
+
+  const isActive = (path: string) => {
+    return location.pathname === path;
+  };
 
   return (
     <>
@@ -39,15 +45,17 @@ const CoursesPage: React.FC = () => {
               <li key={item.label}>
                 <Link
                   to={item.path}
-                  className="relative group cursor-pointer font-bold text-[#0D3B66]
-                             transition-all duration-300 ease-out
-                             hover:-translate-y-[2px] hover:scale-105 hover:text-[#0A2A4A]"
+                  className={`relative group cursor-pointer font-bold transition-all duration-300 ease-out
+                             hover:-translate-y-[2px] hover:scale-105 hover:text-[#0A2A4A] ${
+                               isActive(item.path) ? 'text-[#F97316]' : 'text-[#0D3B66]'
+                             }`}
                   style={{ textDecoration: 'none', display: 'inline-block' }}
                 >
                   {item.label}
-                  <span className="absolute left-1/2 -translate-x-1/2 bottom-[-4px] w-0 h-[2px]
-                                 bg-[#0D3B66] transition-all duration-300 ease-out
-                                 group-hover:w-full"></span>
+                  <span className={`absolute left-1/2 -translate-x-1/2 bottom-[-4px] h-[2px]
+                                 bg-[#0D3B66] transition-all duration-300 ease-out ${
+                                   isActive(item.path) ? 'w-full bg-[#F97316]' : 'w-0 group-hover:w-full'
+                                 }`}></span>
                 </Link>
               </li>
             ))}

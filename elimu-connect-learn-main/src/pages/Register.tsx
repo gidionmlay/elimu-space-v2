@@ -23,6 +23,9 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/components/ui/use-toast';
 import HeaderHero from '@/components/HeaderHero';
 import FooterRedesign from '@/components/FooterRedesign';
+import aminaAvatar from '@/assets/avatars/amina.jpg';
+import josephAvatar from '@/assets/avatars/joseph.jpg';
+import graceAvatar from '@/assets/avatars/grace.jpg';
 
 const Register: React.FC = () => {
   const navigate = useNavigate();
@@ -107,12 +110,15 @@ const Register: React.FC = () => {
         // Show success toast
         toast({
           title: 'Registration successful!',
-          description: 'Your account has been created. Welcome to Elimu Space!',
+          description: 'Your account has been created. Please login to continue.',
           variant: 'default',
         });
         
-        // Redirect to home or dashboard
-        navigate('/', { replace: true });
+        // Redirect to login page (not automatic login for security)
+        navigate('/login', { 
+          replace: true,
+          state: { message: 'Registration successful! Please login with your credentials.' }
+        });
         
       } catch (error: any) {
         // Show error toast
@@ -151,7 +157,7 @@ const Register: React.FC = () => {
       id: 1,
       name: 'Amina Hassan',
       role: 'Software Developer',
-      avatar: '/placeholder-avatar.jpg',
+      avatar: aminaAvatar,
       rating: 5,
       text: 'Elimu Space transformed my career! The courses are practical and the community is amazing.'
     },
@@ -159,7 +165,7 @@ const Register: React.FC = () => {
       id: 2,
       name: 'John Mwangi',
       role: 'Business Owner',
-      avatar: '/placeholder-avatar.jpg',
+      avatar: josephAvatar,
       rating: 5,
       text: 'I gained the skills I needed to start my business. Highly recommend!'
     },
@@ -167,7 +173,7 @@ const Register: React.FC = () => {
       id: 3,
       name: 'Grace Kilimo',
       role: 'Data Analyst',
-      avatar: '/placeholder-avatar.jpg',
+      avatar: graceAvatar,
       rating: 5,
       text: 'The instructors are world-class. I learned more here than in university!'
     }

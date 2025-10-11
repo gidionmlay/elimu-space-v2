@@ -66,7 +66,7 @@ const HeroSection: React.FC = () => {
               lineHeight: '1.7',
               marginBottom: '40px'
             }}>
-              Empowering learners across Tanzania to innovate and grow through accessible, world-class digital education designed for Africa's future.
+              Empowering learners across Africa to innovate and grow through accessible, world-class digital education designed for Africa's future.
             </p>
 
             <div style={{
