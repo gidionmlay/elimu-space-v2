@@ -7,13 +7,14 @@ import HeroSection from '@/components/about/HeroSection';
 import MissionVisionSection from '@/components/about/MissionVisionSection';
 import CoreValuesSection from '@/components/about/CoreValuesSection';
 import ImpactStatistics from '@/components/about/ImpactStatistics';
+import TeamSection from '@/components/about/TeamSection';
 import FinalCTA from '@/components/about/FinalCTA';
 
 const About = () => {
   return (
     <div className="min-h-screen">
-      {/* REUSE EXISTING HEADER */}
-      <HeaderHero />
+      {/* REUSE EXISTING HEADER - without course search section */}
+      <HeaderHero showCourseSearch={false} />
 
       {/* NEW SECTIONS */}
       <StickyNavigation />
@@ -21,6 +22,9 @@ const About = () => {
       <MissionVisionSection />
       <CoreValuesSection />
       <ImpactStatistics />
+
+      {/* TEAM SECTION */}
+      <TeamSection />
 
       {/* REUSE EXISTING PARTNER SECTION */}
       <PartnerSection />

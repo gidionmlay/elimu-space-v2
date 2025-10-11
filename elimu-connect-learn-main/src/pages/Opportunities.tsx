@@ -14,8 +14,8 @@ import FloatingCTAButton from '@/components/opportunities/FloatingCTAButton';
 const Opportunities = () => {
   return (
     <div className="min-h-screen">
-      {/* REUSE EXISTING HEADER */}
-      <HeaderHero />
+      {/* REUSE EXISTING HEADER - without course search section */}
+      <HeaderHero showCourseSearch={false} />
 
       {/* NEW SECTIONS */}
       <HeroSection />

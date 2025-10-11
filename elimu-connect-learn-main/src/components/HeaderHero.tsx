@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "animate.css";
@@ -7,10 +7,17 @@ import { faUser, faBell, faSearch, faStar, faChartLine } from "@fortawesome/free
 import RegisterButton from "./RegisterButton";
 import CourseSearchSection from "./CourseSearchSection";
 import { useAuth } from "@/contexts/AuthContext";
+import HamburgerMenu from "./ui/HamburgerMenu";
+import MobileNav from "./ui/MobileNav";
 
-const HeaderHero = () => {
+interface HeaderHeroProps {
+  showCourseSearch?: boolean;
+}
+
+const HeaderHero: React.FC<HeaderHeroProps> = ({ showCourseSearch = true }) => {
   const { user, isAuthenticated } = useAuth();
   const location = useLocation();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Navigation links based on auth status
   const navLinks = isAuthenticated
@@ -33,8 +40,9 @@ const HeaderHero = () => {
 
   return (
     <header className="bg-[#F5F5F5] text-[#0D3B66] min-h-screen flex flex-col relative overflow-visible pb-24 md:pb-32">
-      {/* Navbar */}
-      <nav className="container d-flex justify-content-between align-items-center py-3 bg-[#F5F5F5] shadow-sm">
+      {/* Navbar - Sticky with backdrop blur */}
+      <nav className="sticky top-0 z-50 bg-[#F5F5F5]/95 backdrop-blur-md shadow-md border-b border-gray-200/50">
+        <div className="container d-flex justify-content-between align-items-center py-3">
         {/* Logo */}
         <div className="d-flex align-items-center">
           <Link to="/" style={{ textDecoration: 'none' }}>
@@ -71,14 +79,14 @@ const HeaderHero = () => {
 
         {/* Right Side Buttons */}
         <div className="d-flex align-items-center gap-3">
-          {/* Icons */}
-          <button className="p-2 text-[#0D3B66] hover:text-[#0A2A4A] transition-colors duration-200" aria-label="Search">
+          {/* Desktop Icons */}
+          <button className="p-2 text-[#0D3B66] hover:text-[#0A2A4A] transition-colors duration-200 hidden md:block" aria-label="Search">
             <FontAwesomeIcon icon={faSearch} className="w-5 h-5" />
           </button>
           {isAuthenticated && (
             <Link 
               to="/dashboard" 
-              className="p-2 text-[#0D3B66] hover:text-[#0A2A4A] transition-colors duration-200" 
+              className="p-2 text-[#0D3B66] hover:text-[#0A2A4A] transition-colors duration-200 hidden md:block" 
               aria-label="Notifications"
             >
               <FontAwesomeIcon icon={faBell} className="w-5 h-5" />
@@ -87,7 +95,7 @@ const HeaderHero = () => {
           {isAuthenticated ? (
             <Link 
               to="/dashboard" 
-              className="p-2 text-[#0D3B66] hover:text-[#0A2A4A] transition-colors duration-200 flex items-center gap-2" 
+              className="p-2 text-[#0D3B66] hover:text-[#0A2A4A] transition-colors duration-200 items-center gap-2 hidden md:flex" 
               aria-label="User Account"
               title={user?.full_name || user?.username}
             >
@@ -97,15 +105,33 @@ const HeaderHero = () => {
           ) : (
             <Link 
               to="/login" 
-              className="p-2 text-[#0D3B66] hover:text-[#0A2A4A] transition-colors duration-200" 
+              className="p-2 text-[#0D3B66] hover:text-[#0A2A4A] transition-colors duration-200 hidden md:block" 
               aria-label="User Account"
             >
               <FontAwesomeIcon icon={faUser} className="w-5 h-5" />
             </Link>
           )}
-          {!isAuthenticated && <RegisterButton />}
+          <div className="hidden md:block">
+            {!isAuthenticated && <RegisterButton />}
+          </div>
+
+          {/* Mobile Hamburger Menu - visible only on small screens */}
+          <div className="lg:hidden">
+            <HamburgerMenu 
+              isOpen={mobileMenuOpen} 
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
+            />
+          </div>
+        </div>
         </div>
       </nav>
+
+      {/* Mobile Navigation Menu */}
+      <MobileNav 
+        isOpen={mobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
+        navLinks={navLinks}
+      />
 
       {/* Hero Section */}
       <div className="container flex flex-column flex-md-row align-items-center justify-content-between py-5 position-relative">
@@ -150,8 +176,8 @@ const HeaderHero = () => {
         </div>
       </div>
 
-      {/* Course Search Section - Overlapping */}
-      <CourseSearchSection />
+      {/* Course Search Section - Overlapping (only on homepage) */}
+      {showCourseSearch && <CourseSearchSection />}
       
       {/* Floating Animation Styles */}
       <style>{`

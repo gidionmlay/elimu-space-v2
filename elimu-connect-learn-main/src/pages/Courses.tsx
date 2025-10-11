@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faBell, faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -8,9 +8,12 @@ import CategoryFilter from '@/components/modern/CategoryFilter';
 import FeaturedCourses from '@/components/modern/FeaturedCourses';
 import AllCoursesGrid from '@/components/modern/AllCoursesGrid';
 import RequestCourseCTA from '@/components/modern/RequestCourseCTA';
+import HamburgerMenu from '@/components/ui/HamburgerMenu';
+import MobileNav from '@/components/ui/MobileNav';
 
 const CoursesPage: React.FC = () => {
   const location = useLocation();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   const navLinks = [
     { label: "Home", path: "/" },
@@ -25,8 +28,8 @@ const CoursesPage: React.FC = () => {
 
   return (
     <>
-      {/* Reuse existing Header - just the nav part */}
-      <nav className="bg-[#F5F5F5] text-[#0D3B66] sticky top-0 z-50 shadow-lg">
+      {/* Sticky Navbar with backdrop blur */}
+      <nav className="bg-[#F5F5F5]/95 backdrop-blur-md text-[#0D3B66] sticky top-0 z-50 shadow-lg border-b border-gray-200/50">
         <div className="container d-flex justify-content-between align-items-center py-3">
           {/* Logo */}
           <div className="d-flex align-items-center">
@@ -63,17 +66,19 @@ const CoursesPage: React.FC = () => {
 
           {/* Right Side Buttons */}
           <div className="d-flex align-items-center gap-3">
-            <button className="p-2 text-[#0D3B66] hover:text-[#0A2A4A] transition-colors duration-200" aria-label="Search">
+            {/* Desktop Icons */}
+            <button className="p-2 text-[#0D3B66] hover:text-[#0A2A4A] transition-colors duration-200 hidden md:block" aria-label="Search">
               <FontAwesomeIcon icon={faSearch} className="w-5 h-5" />
             </button>
-            <button className="p-2 text-[#0D3B66] hover:text-[#0A2A4A] transition-colors duration-200" aria-label="Notifications">
+            <button className="p-2 text-[#0D3B66] hover:text-[#0A2A4A] transition-colors duration-200 hidden md:block" aria-label="Notifications">
               <FontAwesomeIcon icon={faBell} className="w-5 h-5" />
             </button>
-            <button className="p-2 text-[#0D3B66] hover:text-[#0A2A4A] transition-colors duration-200" aria-label="User Account">
+            <button className="p-2 text-[#0D3B66] hover:text-[#0A2A4A] transition-colors duration-200 hidden md:block" aria-label="User Account">
               <FontAwesomeIcon icon={faUser} className="w-5 h-5" />
             </button>
             <Link
               to="/register"
+              className="hidden md:inline-block"
               style={{
                 padding: '10px 24px',
                 background: '#0D3B66',
@@ -84,7 +89,6 @@ const CoursesPage: React.FC = () => {
                 fontWeight: '600',
                 textDecoration: 'none',
                 transition: 'all 0.3s ease',
-                display: 'inline-block'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = '#0A2A4A';
@@ -97,9 +101,24 @@ const CoursesPage: React.FC = () => {
             >
               Register
             </Link>
+
+            {/* Mobile Hamburger Menu - visible only on small screens */}
+            <div className="lg:hidden">
+              <HamburgerMenu 
+                isOpen={mobileMenuOpen} 
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
+              />
+            </div>
           </div>
         </div>
       </nav>
+
+      {/* Mobile Navigation Menu */}
+      <MobileNav 
+        isOpen={mobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
+        navLinks={navLinks}
+      />
 
       {/* New Course Page Sections */}
       <CoursesHero />

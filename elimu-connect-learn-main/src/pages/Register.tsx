@@ -23,9 +23,10 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/components/ui/use-toast';
 import HeaderHero from '@/components/HeaderHero';
 import FooterRedesign from '@/components/FooterRedesign';
-import aminaAvatar from '@/assets/avatars/amina.jpg';
-import josephAvatar from '@/assets/avatars/joseph.jpg';
-import graceAvatar from '@/assets/avatars/grace.jpg';
+import imaniAvatar from '@/assets/avatars/imani_p.jpg';
+import gidiionAvatar from '@/assets/avatars/gidiion.jpg';
+import suzaniAvatar from '@/assets/avatars/suzani.jpg';
+import defaultAvatar from '@/assets/avatars/default-avatar.jpg';
 
 const Register: React.FC = () => {
   const navigate = useNavigate();
@@ -157,7 +158,7 @@ const Register: React.FC = () => {
       id: 1,
       name: 'Amina Hassan',
       role: 'Software Developer',
-      avatar: aminaAvatar,
+      avatar: imaniAvatar,
       rating: 5,
       text: 'Elimu Space transformed my career! The courses are practical and the community is amazing.'
     },
@@ -165,7 +166,7 @@ const Register: React.FC = () => {
       id: 2,
       name: 'John Mwangi',
       role: 'Business Owner',
-      avatar: josephAvatar,
+      avatar: gidiionAvatar,
       rating: 5,
       text: 'I gained the skills I needed to start my business. Highly recommend!'
     },
@@ -173,7 +174,7 @@ const Register: React.FC = () => {
       id: 3,
       name: 'Grace Kilimo',
       role: 'Data Analyst',
-      avatar: graceAvatar,
+      avatar: suzaniAvatar,
       rating: 5,
       text: 'The instructors are world-class. I learned more here than in university!'
     }

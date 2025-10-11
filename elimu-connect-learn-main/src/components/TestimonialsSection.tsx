@@ -13,10 +13,11 @@ import {
 } from "@/components/ui/carousel";
 
 // Import avatar images
-import aminaAvatar from "@/assets/avatars/amina.jpg";
-import josephAvatar from "@/assets/avatars/joseph.jpg";
-import graceAvatar from "@/assets/avatars/grace.jpg";
-import ibrahimAvatar from "@/assets/avatars/ibrahim.jpg";
+import imaniAvatar from '@/assets/avatars/imani_p.jpg';
+import gidiionAvatar from '@/assets/avatars/gidiion.jpg';
+import suzaniAvatar from '@/assets/avatars/suzani.jpg';
+import godfreyAvatar from '@/assets/avatars/godfrey_chussi.jpg';
+import defaultAvatar from '@/assets/avatars/default-avatar.jpg';
 
 interface Testimonial {
   id: string;
@@ -41,7 +42,7 @@ const defaultTestimonials: Testimonial[] = [
     name: 'Amina Hassan',
     role: 'Recent Graduate',
     location: 'Dar es Salaam',
-    avatar: aminaAvatar,
+    avatar: imaniAvatar,
     quote: 'Elimu Space helped me learn web development. Now I work as a freelancer and earn good money!',
     rating: 5,
     course: 'Web Development'
@@ -51,7 +52,7 @@ const defaultTestimonials: Testimonial[] = [
     name: 'Joseph Mwangi',
     role: 'Small Business Owner',
     location: 'Arusha',
-    avatar: josephAvatar,
+    avatar: gidiionAvatar,
     quote: 'The entrepreneurship course changed my mindset. My business has grown 300% in 6 months.',
     rating: 5,
     course: 'Entrepreneurship'
@@ -61,7 +62,7 @@ const defaultTestimonials: Testimonial[] = [
     name: 'Grace Mollel',
     role: 'University Student',
     location: 'Mwanza',
-    avatar: graceAvatar,
+    avatar: suzaniAvatar,
     quote: 'Perfect for learning during my free time. The mobile money course helped me start my fintech idea.',
     rating: 5,
     course: 'Digital Finance'
@@ -71,7 +72,7 @@ const defaultTestimonials: Testimonial[] = [
     name: 'Ibrahim Khamis',
     role: 'Youth Leader',
     location: 'Zanzibar',
-    avatar: ibrahimAvatar,
+    avatar: godfreyAvatar,
     quote: 'Affordable, practical, and in Swahili! Exactly what Tanzanian youth need.',
     rating: 5,
     course: 'Digital Literacy'
