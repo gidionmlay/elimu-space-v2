@@ -145,7 +145,7 @@ export const getInstructorStudents = async (req: AuthRequest, res: Response) => 
       enrolledAt: result.createdAt
     }));
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       data: students,
       pagination: {
@@ -157,7 +157,7 @@ export const getInstructorStudents = async (req: AuthRequest, res: Response) => 
     });
   } catch (error: any) {
     console.error('Get instructor students error:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: 'Failed to fetch students',
       error: error.message
@@ -230,7 +230,7 @@ export const getStudentDetails = async (req: AuthRequest, res: Response) => {
     const avgProgress = enrollments.reduce((sum: number, e: any) => sum + e.progress, 0) / enrollments.length;
     const completedCourses = enrollments.filter((e: any) => e.is_completed).length;
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       data: {
         studentId: student._id,
@@ -250,7 +250,7 @@ export const getStudentDetails = async (req: AuthRequest, res: Response) => {
     });
   } catch (error: any) {
     console.error('Get student details error:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: 'Failed to fetch student details',
       error: error.message
@@ -365,10 +365,10 @@ export const exportStudentsCSV = async (req: AuthRequest, res: Response) => {
 
     res.setHeader('Content-Type', 'text/csv');
     res.setHeader('Content-Disposition', 'attachment; filename=students.csv');
-    res.status(200).send(csv);
+    return res.status(200).send(csv);
   } catch (error: any) {
     console.error('Export students CSV error:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: 'Failed to export students',
       error: error.message
