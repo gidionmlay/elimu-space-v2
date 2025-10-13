@@ -15,7 +15,7 @@ const PopularCourseCard: React.FC<PopularCourseCardProps> = ({
   instructor,
   lessons,
   students,
-  imageText = "Image",
+  imageText = "/src/assets/course4.png",
 }) => {
   return (
     <div
@@ -26,7 +26,7 @@ const PopularCourseCard: React.FC<PopularCourseCardProps> = ({
     >
       {/* Image Placeholder */}
       <div className="bg-gray-200 h-40 flex items-center justify-center">
-        <span className="text-gray-500 font-medium">{imageText}</span>
+        <img src={imageText} alt={title} className="object-cover h-full w-full" />
       </div>
 
       {/* Card Content */}
