@@ -232,11 +232,16 @@ const CourseGrid = () => {
         </div>
 
         {/* Course Grid */}
-        <div className={`grid gap-6 animate-slide-up ${
+        <div className={`grid gap-4 md:gap-6 animate-slide-up ${
           viewMode === 'grid' 
-            ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' 
+            ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
             : 'grid-cols-1 max-w-4xl mx-auto'
-        }`}>
+        }`}
+        style={{
+          gridTemplateColumns: viewMode === 'grid' 
+            ? 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))' 
+            : undefined
+        }}>
           {filteredCourses.map((course, index) => (
             <div 
               key={course.id} 

@@ -20,9 +20,18 @@ const PopularCourseCard: React.FC<PopularCourseCardProps> = ({
   return (
     <div
       className="bg-white rounded-xl shadow-md overflow-hidden
-                 transition-all duration-300 ease-out
+                 transition-all duration-300 ease-in-out
                  hover:-translate-y-2 hover:shadow-xl
-                 flex-shrink-0 w-full"
+                 flex-shrink-0 w-full h-full"
+      style={{
+        willChange: "transform"
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = "translateY(-8px) scale(1.02)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = "translateY(0) scale(1)";
+      }}
     >
       {/* Image Placeholder */}
       <div className="bg-gray-200 h-40 flex items-center justify-center">

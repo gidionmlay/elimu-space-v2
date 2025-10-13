@@ -71,8 +71,8 @@ const GallerySection: React.FC = () => {
         {/* Masonry Grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-          gap: '24px',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+          gap: '1.5rem',
           gridAutoRows: '250px'
         }}>
           {images.map((image, index) => (
@@ -305,10 +305,23 @@ const GallerySection: React.FC = () => {
           }
         }
 
+        @media (max-width: 1024px) {
+          h2 { font-size: 40px !important; }
+        }
+        
         @media (max-width: 768px) {
           h2 { font-size: 36px !important; }
           .container > div:last-child {
-            grid-template-columns: 1fr !important;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)) !important;
+            gap: 1rem !important;
+            grid-auto-rows: 200px !important;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          h2 { font-size: 28px !important; }
+          .container > div:last-child {
+            grid-auto-rows: 180px !important;
           }
         }
       `}</style>

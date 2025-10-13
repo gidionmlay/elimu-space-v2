@@ -137,8 +137,9 @@ const BlogSection: React.FC = () => {
           {/* Blog Grid */}
           <div className="blog-grid" style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '32px'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))',
+            gap: '1.5rem',
+            alignItems: 'start'
           }}>
             {articles.map((article, index) => (
               <article
@@ -343,8 +344,8 @@ const BlogSection: React.FC = () => {
 
         @media (max-width: 1024px) {
           .blog-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 24px !important;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)) !important;
+            gap: 1.25rem !important;
           }
 
           .section-header h2 {
@@ -358,13 +359,13 @@ const BlogSection: React.FC = () => {
           }
 
           .blog-grid {
-            grid-template-columns: 1fr !important;
-            gap: 24px !important;
+            gap: 1rem !important;
           }
 
           .section-header {
             flex-direction: column !important;
             align-items: flex-start !important;
+            gap: 16px !important;
           }
 
           .section-header h2 {
@@ -378,6 +379,10 @@ const BlogSection: React.FC = () => {
           .view-all-btn {
             width: 100% !important;
             justify-content: center !important;
+          }
+          
+          .blog-card {
+            min-height: auto !important;
           }
         }
       `}</style>

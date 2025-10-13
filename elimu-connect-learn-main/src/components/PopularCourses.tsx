@@ -160,13 +160,23 @@ const PopularCourses: React.FC = () => {
         <div
           ref={scrollContainerRef}
           onScroll={handleScroll}
-          className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth pb-4"
-          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          className="flex gap-4 md:gap-6 overflow-x-auto scrollbar-hide pb-4"
+          style={{ 
+            scrollbarWidth: "none", 
+            msOverflowStyle: "none",
+            scrollSnapType: "x mandatory",
+            scrollBehavior: "smooth",
+            WebkitOverflowScrolling: "touch"
+          }}
         >
           {courses.map((course) => (
             <div
               key={course.id}
-              className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] flex-shrink-0"
+              className="w-[85vw] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] flex-shrink-0"
+              style={{
+                scrollSnapAlign: "center",
+                scrollSnapStop: "always"
+              }}
             >
               <PopularCourseCard
                 title={course.title}

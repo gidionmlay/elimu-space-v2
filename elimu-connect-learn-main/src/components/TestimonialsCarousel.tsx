@@ -167,6 +167,10 @@ const TestimonialsCarousel: React.FC = () => {
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6"
+            style={{
+              scrollBehavior: "smooth",
+              WebkitOverflowScrolling: "touch"
+            }}
           >
             {visibleTestimonials.map((testimonial) => (
               <div
@@ -174,7 +178,13 @@ const TestimonialsCarousel: React.FC = () => {
                 className="bg-white rounded-xl p-8 md:p-10 min-h-[400px] flex flex-col justify-between
                            shadow-[0_2px_8px_rgba(0,0,0,0.06)]
                            hover:shadow-[0_8px_16px_rgba(0,0,0,0.1)] hover:-translate-y-1
-                           transition-all duration-300 will-change-transform"
+                           transition-all duration-300 ease-in-out will-change-transform"
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "translateY(-4px) scale(1.02)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "translateY(0) scale(1)";
+                }}
               >
                 {/* Quote Icon */}
                 <div className="mb-4">
