@@ -23,7 +23,7 @@ const Hero = () => {
           {/* Badge */}
           <div className="inline-flex items-center px-4 py-2 glass-card rounded-full text-sm font-medium text-primary">
             <FontAwesomeIcon icon={faTrophy} className="w-4 h-4 mr-2 text-tanzania-gold" />
-            E-Learning Platform for Empowering Youth
+            E-Learning Platform for Empoweringouth
           </div>
 
           {/* Main Heading */}

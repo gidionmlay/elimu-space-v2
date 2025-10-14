@@ -131,7 +131,7 @@ const CoursesHero: React.FC = () => {
             margin: '0 auto',
             lineHeight: '1.6'
           }}>
-            Discover practical skills to launch your career and transform your future in Tanzania's digital economy
+            Transform your future with skills that connect you to jobs, entrepreneurship, and real-world opportunities
           </p>
         </div>
 

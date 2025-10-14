@@ -63,7 +63,7 @@ const CourseSearchSection: React.FC = () => {
       >
         {/* Title */}
         <h2 className="text-center text-white font-bold text-xl md:text-2xl mb-6">
-          Find Your Course. Apply Hurry Up!
+          Find your course. Start learn it
         </h2>
 
         {/* Search Form */}

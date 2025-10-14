@@ -95,7 +95,7 @@ const BlogSection: React.FC = () => {
                 fontWeight: '400',
                 lineHeight: '1.6'
               }}>
-                Insights, tips, and success stories for Tanzanian youth
+                Insights, tips, and success stories for learners
               </p>
             </div>
 

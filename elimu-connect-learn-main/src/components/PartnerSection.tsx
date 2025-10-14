@@ -70,7 +70,7 @@ const PartnerSection: React.FC = () => {
               lineHeight: '1.6'
             }}
           >
-            Working together to empower Tanzanian youth with quality education
+            Working together to empower learners with employability skills
           </p>
         </div>
 
