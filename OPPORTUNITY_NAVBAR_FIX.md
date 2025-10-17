@@ -235,3 +235,4 @@ The old hero section with banner image has been successfully removed from this p
 *Modified Files: HeaderHero.tsx, Opportunities.tsx*
 *Status: Production Ready ✅*
 
+

@@ -2,21 +2,9 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faUsers, faBook, faFilter, faTimes, faFire, faClock, faMoneyBillWave, faGem } from '@fortawesome/free-solid-svg-icons';
 import ModernDropdown from '@/components/ModernDropdown';
-
-interface Course {
-  id: string;
-  title: string;
-  description: string;
-  instructor: string;
-  rating: number;
-  students: number;
-  lessons: number;
-  price: number;
-  isFree: boolean;
-  category: string;
-  level: string;
-  duration: string;
-}
+import CourseCard, { Course } from '@/components/CourseCard';
+import coursesData from '@/data/courses.json';
+import { formatPrice } from '@/utils/formatPrice';
 
 const AllCoursesGrid: React.FC = () => {
   const [showFilters, setShowFilters] = useState(false);
@@ -24,92 +12,8 @@ const AllCoursesGrid: React.FC = () => {
   const [selectedPrice, setSelectedPrice] = useState('all');
   const [sortBy, setSortBy] = useState('popular');
 
-  const courses: Course[] = [
-    {
-      id: '4',
-      title: 'Python Programming for Beginners',
-      description: 'Start your coding journey with Python. Learn programming fundamentals and build practical projects.',
-      instructor: 'David Mushi',
-      rating: 4.7,
-      students: 1890,
-      lessons: 75,
-      price: 95000,
-      isFree: false,
-      category: 'Technology',
-      level: 'Beginner',
-      duration: '8 weeks'
-    },
-    {
-      id: '5',
-      title: 'Graphic Design Fundamentals',
-      description: 'Master design principles, typography, color theory and create stunning visuals using industry-standard tools.',
-      instructor: 'Amina Hassan',
-      rating: 4.8,
-      students: 2340,
-      lessons: 65,
-      price: 0,
-      isFree: true,
-      category: 'Design',
-      level: 'Beginner',
-      duration: '6 weeks'
-    },
-    {
-      id: '6',
-      title: 'Financial Literacy for Youth',
-      description: 'Build a strong financial foundation. Learn budgeting, saving, investing and money management skills.',
-      instructor: 'James Nyerere',
-      rating: 4.9,
-      students: 3120,
-      lessons: 45,
-      price: 0,
-      isFree: true,
-      category: 'Finance',
-      level: 'Beginner',
-      duration: '4 weeks'
-    },
-    {
-      id: '7',
-      title: 'Data Science with Python',
-      description: 'Learn data analysis, visualization, machine learning and AI. Work with real-world datasets.',
-      instructor: 'Dr. Sarah Kimani',
-      rating: 4.8,
-      students: 1567,
-      lessons: 120,
-      price: 180000,
-      isFree: false,
-      category: 'Technology',
-      level: 'Advanced',
-      duration: '14 weeks'
-    },
-    {
-      id: '8',
-      title: 'Social Media Content Creation',
-      description: 'Create engaging content for Instagram, TikTok, YouTube. Master video editing and storytelling.',
-      instructor: 'Lucy Masanja',
-      rating: 4.6,
-      students: 2890,
-      lessons: 55,
-      price: 65000,
-      isFree: false,
-      category: 'Marketing',
-      level: 'Intermediate',
-      duration: '5 weeks'
-    },
-    {
-      id: '9',
-      title: 'Agriculture & Modern Farming',
-      description: 'Learn sustainable farming techniques, crop management and agricultural business practices.',
-      instructor: 'Joseph Mduma',
-      rating: 4.7,
-      students: 1234,
-      lessons: 50,
-      price: 0,
-      isFree: true,
-      category: 'Agriculture',
-      level: 'Beginner',
-      duration: '6 weeks'
-    }
-  ];
+  // Use all courses from the data
+  const courses: Course[] = coursesData;
 
   const toggleLevel = (level: string) => {
     setSelectedLevel(prev =>
@@ -356,169 +260,63 @@ const AllCoursesGrid: React.FC = () => {
               gap: '24px'
             }}>
               {courses.map(course => (
-                <article
+                <CourseCard 
                   key={course.id}
-                  style={{
-                    background: 'white',
-                    border: '1px solid #E5E7EB',
-                    borderRadius: '12px',
-                    overflow: 'hidden',
-                    transition: 'all 0.3s ease',
-                    cursor: 'pointer'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = '#F97316';
-                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(249, 115, 22, 0.12)';
-                    e.currentTarget.style.transform = 'translateY(-4px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = '#E5E7EB';
-                    e.currentTarget.style.boxShadow = 'none';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                  }}
-                >
-                  {/* Thumbnail */}
-                  <div style={{
-                    height: '180px',
-                    background: 'linear-gradient(135deg, #F97316 0%, #EA580C 100%)',
-                    position: 'relative',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'white',
-                    fontSize: '48px',
-                    fontWeight: '900',
-                    opacity: 0.9
-                  }}>
-                    {course.title.charAt(0)}
-                    {course.isFree && (
-                      <span style={{
-                        position: 'absolute',
-                        top: '12px',
-                        left: '12px',
-                        background: '#10B981',
-                        color: 'white',
-                        padding: '4px 12px',
-                        borderRadius: '6px',
-                        fontSize: '12px',
-                        fontWeight: '700'
-                      }}>
-                        FREE
-                      </span>
-                    )}
-                    <span style={{
-                      position: 'absolute',
-                      top: '12px',
-                      right: '12px',
-                      background: 'rgba(0, 0, 0, 0.6)',
-                      color: 'white',
-                      padding: '4px 10px',
-                      borderRadius: '6px',
-                      fontSize: '11px',
-                      fontWeight: '600'
-                    }}>
-                      {course.level}
-                    </span>
-                  </div>
-
-                  {/* Content */}
-                  <div style={{ padding: '20px' }}>
-                    <h3 style={{
-                      fontSize: '17px',
-                      fontWeight: '700',
-                      color: '#111827',
-                      marginBottom: '8px',
-                      lineHeight: '1.4',
-                      display: '-webkit-box',
-                      WebkitLineClamp: 2,
-                      WebkitBoxOrient: 'vertical',
-                      overflow: 'hidden'
-                    }}>
-                      {course.title}
-                    </h3>
-
-                    <p style={{
-                      fontSize: '13px',
-                      color: '#6B7280',
-                      marginBottom: '12px',
-                      lineHeight: '1.5',
-                      display: '-webkit-box',
-                      WebkitLineClamp: 2,
-                      WebkitBoxOrient: 'vertical',
-                      overflow: 'hidden'
-                    }}>
-                      {course.description}
-                    </p>
-
-                    <div style={{
-                      fontSize: '13px',
-                      color: '#6B7280',
-                      marginBottom: '12px'
-                    }}>
-                      by {course.instructor}
-                    </div>
-
-                    {/* Stats */}
-                    <div style={{
-                      display: 'flex',
-                      gap: '16px',
-                      marginBottom: '16px',
-                      fontSize: '13px',
-                      color: '#6B7280'
-                    }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <FontAwesomeIcon icon={faStar} style={{ width: '14px', height: '14px', color: '#F59E0B' }} />
-                        <span style={{ fontWeight: '600', color: '#111827' }}>{course.rating}</span>
-                      </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <FontAwesomeIcon icon={faUsers} style={{ width: '14px', height: '14px' }} />
-                        <span>{course.students.toLocaleString()}</span>
-                      </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <FontAwesomeIcon icon={faBook} style={{ width: '14px', height: '14px' }} />
-                        <span>{course.lessons}</span>
-                      </div>
-                    </div>
-
-                    {/* Price */}
-                    <div style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      paddingTop: '16px',
-                      borderTop: '1px solid #E5E7EB'
-                    }}>
-                      <div style={{
-                        fontSize: '22px',
-                        fontWeight: '800',
-                        color: course.isFree ? '#10B981' : '#F97316'
-                      }}>
-                        {course.isFree ? 'Free' : `TSh ${(course.price / 1000).toFixed(0)}k`}
-                      </div>
-                      <button style={{
-                        padding: '8px 16px',
-                        background: '#F97316',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '6px',
-                        fontSize: '13px',
-                        fontWeight: '600',
-                        cursor: 'pointer',
-                        transition: 'background 0.3s ease'
-                      }}
-                        onMouseEnter={(e) => e.currentTarget.style.background = '#EA580C'}
-                        onMouseLeave={(e) => e.currentTarget.style.background = '#F97316'}
-                      >
-                        Enroll
-                      </button>
-                    </div>
-                  </div>
-                </article>
+                  course={course} 
+                  variant="compact"
+                  showInstructor={true}
+                />
               ))}
             </div>
           </div>
         </div>
       </div>
+      
+      {/* Responsive Styles */}
+      <style>{`
+        @media (max-width: 1024px) {
+          .container > div:last-child {
+            flex-direction: column !important;
+            gap: 2rem !important;
+          }
+          
+          .container > div:last-child > aside {
+            flex: none !important;
+            position: static !important;
+            width: 100% !important;
+          }
+        }
+        
+        @media (max-width: 768px) {
+          .container > div:last-child > div:last-child > div {
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+            gap: 1rem !important;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .container > div:last-child > div:last-child > div {
+            grid-template-columns: 1fr !important;
+            gap: 0.75rem !important;
+          }
+        }
+        
+        /* Animation for section */
+        section {
+          animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </section>
   );
 };

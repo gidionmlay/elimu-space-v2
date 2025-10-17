@@ -299,3 +299,4 @@ The new hero section successfully transforms the Opportunity page into a modern,
 *Component: `HeroSection.tsx`*
 *Designer: AI Assistant | Developer: AI Assistant*
 
+

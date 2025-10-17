@@ -8,6 +8,7 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import FloatingActionButtons from "@/components/FloatingActionButtons";
 import Index from "./pages/Index";
 import Courses from "./pages/Courses";
+import CourseDetailPage from "./pages/CourseDetailPage";
 import Opportunities from "./pages/Opportunities";
 import About from "./pages/About";
 import Register from "./pages/Register";
@@ -30,6 +31,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/courses" element={<Courses />} />
+            <Route path="/course/:id" element={<CourseDetailPage />} />
             <Route path="/opportunities" element={<Opportunities />} />
             <Route path="/about" element={<About />} />
             <Route path="/register" element={<Register />} />

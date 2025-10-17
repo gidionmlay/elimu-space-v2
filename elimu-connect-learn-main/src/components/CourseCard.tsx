@@ -1,210 +1,446 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar, faClock, faUsers, faHeart, faPlay } from "@fortawesome/free-solid-svg-icons";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar, faUsers, faBook, faClock, faCertificate, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+import { formatPrice, truncateText, formatDuration } from '@/utils/formatPrice';
 
-interface Course {
+export interface Course {
   id: string;
   title: string;
-  instructor: string;
-  rating: number;
-  reviewCount: number;
+  description: string;
+  shortDescription: string;
+  whatYouWillLearn: string[];
   duration: string;
-  students: number;
+  sessions: string;
+  assessment: string;
+  certification: string;
   price: number;
-  originalPrice?: number;
-  thumbnail: string;
+  outcome: string;
   category: string;
-  level: 'Beginner' | 'Intermediate' | 'Advanced';
-  language: 'English' | 'Swahili' | 'Both';
-  isFree: boolean;
-  isPremium: boolean;
-  progress?: number; // For enrolled courses
+  level: string;
+  rating: number;
+  totalRatings: number;
+  students: number;
+  lessons: number;
+  instructor: string;
+  thumbnail: string;
+  isBestseller?: boolean;
+  isFeatured?: boolean;
 }
 
 interface CourseCardProps {
   course: Course;
-  variant?: 'grid' | 'list' | 'featured';
-  showProgress?: boolean;
-  onEnroll?: (courseId: string) => void;
-  onWishlist?: (courseId: string) => void;
+  variant?: 'default' | 'featured' | 'compact';
+  showInstructor?: boolean;
+  className?: string;
 }
 
-const CourseCard = ({ 
+const CourseCard: React.FC<CourseCardProps> = ({ 
   course, 
-  variant = 'grid', 
-  showProgress = false, 
-  onEnroll, 
-  onWishlist 
-}: CourseCardProps) => {
-  const {
-    id,
-    title,
-    instructor,
-    rating,
-    reviewCount,
-    duration,
-    students,
-    price,
-    originalPrice,
-    thumbnail,
-    category,
-    level,
-    language,
-    isFree,
-    isPremium,
-    progress
-  } = course;
+  variant = 'default', 
+  showInstructor = true,
+  className = ''
+}) => {
 
-  const formatPrice = (amount: number) => {
-    return new Intl.NumberFormat('sw-TZ', {
-      style: 'currency',
-      currency: 'TZS',
-      minimumFractionDigits: 0,
-    }).format(amount);
+  const getCardStyles = () => {
+    const baseStyles = {
+      background: 'white',
+      borderRadius: variant === 'compact' ? '12px' : '16px',
+      overflow: 'hidden',
+      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
+      transition: 'all 0.3s ease',
+      cursor: 'pointer',
+      display: 'flex',
+      flexDirection: 'column' as const,
+      textDecoration: 'none',
+      color: 'inherit',
+      border: '1px solid #f3f4f6'
+    };
+
+    switch (variant) {
+      case 'featured':
+        return {
+          ...baseStyles,
+          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.12)',
+          border: '1px solid #F97316'
+        };
+      case 'compact':
+        return {
+          ...baseStyles,
+          borderRadius: '12px',
+          boxShadow: '0 1px 4px rgba(0, 0, 0, 0.06)'
+        };
+      default:
+        return baseStyles;
+    }
   };
 
-  const formatNumber = (num: number) => {
-    if (num >= 1000) {
-      return `${(num / 1000).toFixed(1)}K`;
+  const getThumbnailHeight = () => {
+    switch (variant) {
+      case 'featured': return '220px';
+      case 'compact': return '160px';
+      default: return '200px';
     }
-    return num.toString();
+  };
+
+  const getPaddingSize = () => {
+    switch (variant) {
+      case 'featured': return '24px';
+      case 'compact': return '16px';
+      default: return '20px';
+    }
   };
 
   return (
-    <Card className="course-card group overflow-hidden h-full">
-      <CardContent className="p-0">
-        {/* Course Thumbnail */}
-        <div className="relative overflow-hidden">
-          <img
-            src={thumbnail}
-            alt={title}
-            className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-            loading="lazy"
+    <Link 
+      to={`/course/${course.id}`}
+      style={getCardStyles()}
+      className={`course-card group hover:-translate-y-1 hover:shadow-lg transition-all duration-300 ${className}`}
+    >
+      {/* Thumbnail */}
+      <div style={{
+        position: 'relative',
+        height: getThumbnailHeight(),
+        background: 'linear-gradient(135deg, #F97316 0%, #EA580C 100%)',
+        overflow: 'hidden',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+        {/* Course Image or Fallback */}
+        {course.thumbnail ? (
+          <img 
+            src={course.thumbnail} 
+            alt={course.title}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover'
+            }}
           />
-          
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
-            <Button
-              size="sm"
-              variant="outline"
-              className="opacity-0 group-hover:opacity-100 transition-all duration-300 bg-white/90 hover:bg-white text-primary border-primary/20"
-            >
-              <FontAwesomeIcon icon={faPlay} className="w-4 h-4 mr-2" />
-              Preview
-            </Button>
+        ) : (
+          <div style={{
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: 'white',
+            fontSize: variant === 'compact' ? '48px' : '64px',
+            fontWeight: '900',
+            opacity: 0.2
+          }}>
+            {course.title.charAt(0)}
           </div>
+        )}
 
-          {/* Badges */}
-          <div className="absolute top-3 left-3 flex flex-wrap gap-2">
-            {isFree && (
-              <Badge className="badge-free text-xs font-medium">
-                Bila Malipo
-              </Badge>
-            )}
-            {isPremium && (
-              <Badge className="badge-premium text-xs font-medium">
-                Premium
-              </Badge>
-            )}
-            <Badge variant="secondary" className="text-xs">
-              {level}
-            </Badge>
+        {/* Badges */}
+        <div style={{
+          position: 'absolute',
+          top: '16px',
+          left: '16px',
+          display: 'flex',
+          gap: '8px',
+          flexWrap: 'wrap'
+        }}>
+          {course.isBestseller && (
+            <span style={{
+              padding: '6px 12px',
+              background: '#F59E0B',
+              color: 'white',
+              borderRadius: '6px',
+              fontSize: '12px',
+              fontWeight: '700',
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px'
+            }}>
+              Bestseller
+            </span>
+          )}
+          <span style={{
+            padding: '6px 12px',
+            background: '#F97316',
+            color: 'white',
+            borderRadius: '6px',
+            fontSize: '12px',
+            fontWeight: '600'
+          }}>
+            {course.category}
+          </span>
+        </div>
+
+        {/* Level Badge */}
+        <div style={{
+          position: 'absolute',
+          top: '16px',
+          right: '16px',
+          padding: '6px 12px',
+          background: 'rgba(0, 0, 0, 0.7)',
+          backdropFilter: 'blur(8px)',
+          color: 'white',
+          borderRadius: '6px',
+          fontSize: '12px',
+          fontWeight: '600'
+        }}>
+          {course.level}
+        </div>
+      </div>
+
+      {/* Content */}
+      <div style={{ 
+        padding: getPaddingSize(), 
+        flex: 1, 
+        display: 'flex', 
+        flexDirection: 'column' 
+      }}>
+        {/* Title */}
+        <h3 style={{
+          fontSize: variant === 'compact' ? '16px' : '20px',
+          fontWeight: '700',
+          color: '#111827',
+          marginBottom: '12px',
+          lineHeight: '1.4',
+          display: '-webkit-box',
+          WebkitLineClamp: 2,
+          WebkitBoxOrient: 'vertical',
+          overflow: 'hidden'
+        }}>
+          {course.title}
+        </h3>
+
+        {/* Description */}
+        <p style={{
+          fontSize: variant === 'compact' ? '13px' : '14px',
+          color: '#6B7280',
+          lineHeight: '1.6',
+          marginBottom: '16px',
+          display: '-webkit-box',
+          WebkitLineClamp: variant === 'compact' ? 2 : 3,
+          WebkitBoxOrient: 'vertical',
+          overflow: 'hidden',
+          flex: 1
+        }}>
+          {truncateText(course.shortDescription, 120)}
+        </p>
+
+        {/* What You'll Learn Preview */}
+        {variant !== 'compact' && (
+          <div style={{ marginBottom: '16px' }}>
+            <h4 style={{
+              fontSize: '13px',
+              fontWeight: '600',
+              color: '#111827',
+              marginBottom: '8px'
+            }}>
+              What You'll Learn:
+            </h4>
+            <ul style={{
+              fontSize: '12px',
+              color: '#6B7280',
+              paddingLeft: '16px',
+              margin: 0
+            }}>
+              {course.whatYouWillLearn.slice(0, 2).map((item, index) => (
+                <li key={index} style={{ marginBottom: '4px' }}>
+                  {item}
+                </li>
+              ))}
+              {course.whatYouWillLearn.length > 2 && (
+                <li style={{ color: '#F97316', fontWeight: '500' }}>
+                  +{course.whatYouWillLearn.length - 2} more skills
+                </li>
+              )}
+            </ul>
           </div>
+        )}
 
-          {/* Wishlist Button */}
-          <Button
-            size="sm"
-            variant="ghost"
-            className="absolute top-3 right-3 w-8 h-8 p-0 bg-white/80 hover:bg-white text-primary opacity-0 group-hover:opacity-100 transition-all duration-300"
-            onClick={() => onWishlist?.(id)}
-          >
-            <FontAwesomeIcon icon={faHeart} className="w-4 h-4" />
-          </Button>
+        {/* Instructor */}
+        {showInstructor && (
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            marginBottom: '16px',
+            paddingBottom: '16px',
+            borderBottom: '1px solid #E5E7EB'
+          }}>
+            <div style={{
+              width: '32px',
+              height: '32px',
+              borderRadius: '50%',
+              background: '#F3F4F6',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '14px',
+              fontWeight: '600',
+              color: '#F97316'
+            }}>
+              {course.instructor.charAt(0)}
+            </div>
+            <span style={{
+              fontSize: '14px',
+              color: '#6B7280',
+              fontWeight: '500'
+            }}>
+              {course.instructor}
+            </span>
+          </div>
+        )}
 
-          {/* Progress Bar for Enrolled Courses */}
-          {showProgress && progress !== undefined && (
-            <div className="absolute bottom-0 left-0 right-0 h-2 bg-black/20">
-              <div 
-                className="h-full progress-bar transition-all duration-300"
-                style={{ width: `${progress}%` }}
-              />
+        {/* Stats */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: variant === 'compact' ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+          gap: '16px',
+          marginBottom: '20px',
+          fontSize: '13px',
+          color: '#6B7280'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <FontAwesomeIcon icon={faStar} className="w-4 h-4" style={{ color: '#F59E0B' }} />
+            <span style={{ fontWeight: '600', color: '#111827' }}>{course.rating}</span>
+            <span>({course.totalRatings.toLocaleString()})</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <FontAwesomeIcon icon={faUsers} className="w-4 h-4" />
+            <span>{(course.students / 1000).toFixed(1)}k</span>
+          </div>
+          {variant !== 'compact' && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <FontAwesomeIcon icon={faBook} className="w-4 h-4" />
+              <span>{course.lessons} lessons</span>
             </div>
           )}
         </div>
 
-        {/* Course Content */}
-        <div className="p-4 space-y-3">
-          {/* Category */}
-          <div className="text-xs text-primary font-medium uppercase tracking-wide">
-            {category}
+        {/* Duration & Certification */}
+        {variant !== 'compact' && (
+          <div style={{
+            display: 'flex',
+            gap: '16px',
+            marginBottom: '16px',
+            fontSize: '12px',
+            color: '#6B7280'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <FontAwesomeIcon icon={faClock} className="w-3 h-3" />
+              <span>{formatDuration(course.duration)}</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <FontAwesomeIcon icon={faCertificate} className="w-3 h-3" />
+              <span>Certificate</span>
+            </div>
           </div>
+        )}
 
-          {/* Title */}
-          <h3 className="font-poppins font-semibold text-base line-clamp-2 text-card-foreground group-hover:text-primary transition-colors">
-            {title}
-          </h3>
-
-          {/* Instructor */}
-          <p className="text-sm text-muted-foreground">
-            Mwalimu: {instructor}
-          </p>
-
-          {/* Stats */}
-          <div className="flex items-center justify-between text-xs text-muted-foreground">
-            <div className="flex items-center space-x-3">
-              <div className="flex items-center">
-                <FontAwesomeIcon icon={faStar} className="w-3 h-3 fill-tanzania-gold text-tanzania-gold mr-1" />
-                <span className="font-medium text-foreground">{rating}</span>
-                <span className="ml-1">({formatNumber(reviewCount)})</span>
+        {/* Price + CTA */}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          paddingTop: '16px',
+          borderTop: '1px solid #E5E7EB'
+        }}>
+          <div>
+            <div style={{
+              fontSize: variant === 'compact' ? '18px' : '22px',
+              fontWeight: '700',
+              color: '#059669',
+              lineHeight: '1'
+            }}>
+              {formatPrice(course.price)}
+            </div>
+            {variant !== 'compact' && (
+              <div style={{
+                fontSize: '12px',
+                color: '#6B7280',
+                marginTop: '4px'
+              }}>
+                {formatDuration(course.duration)}
               </div>
-              <div className="flex items-center">
-                <FontAwesomeIcon icon={faClock} className="w-3 h-3 mr-1" />
-                <span>{duration}</span>
-              </div>
-            </div>
-            <div className="flex items-center">
-              <FontAwesomeIcon icon={faUsers} className="w-3 h-3 mr-1" />
-              <span>{formatNumber(students)}</span>
-            </div>
+            )}
           </div>
 
-          {/* Language */}
-          <div className="text-xs text-muted-foreground">
-            Lugha: {language}
-          </div>
-
-          {/* Price and Action */}
-          <div className="flex items-center justify-between pt-2">
-            <div className="flex items-center space-x-2">
-              {isFree ? (
-                <span className="text-lg font-bold text-success">Bila Malipo</span>
-              ) : (
-                <div className="flex items-center space-x-2">
-                  <span className="text-lg font-bold text-primary">
-                    {formatPrice(price)}
-                  </span>
-                  {originalPrice && (
-                    <span className="text-sm text-muted-foreground line-through">
-                      {formatPrice(originalPrice)}
-                    </span>
-                  )}
-                </div>
-              )}
-            </div>
-
-            <Button
-              size="sm"
-              className="hero-button text-xs px-4 py-2 touch-target"
-              onClick={() => onEnroll?.(id)}
-            >
-              {showProgress ? 'Endelea' : 'Jiunge'}
-            </Button>
-          </div>
+          <button 
+            className="group-hover:scale-105 transition-transform duration-300"
+            style={{
+              padding: variant === 'compact' ? '8px 16px' : '12px 24px',
+              background: '#2563eb',
+              color: 'white',
+              border: 'none',
+              borderRadius: '8px',
+              fontSize: variant === 'compact' ? '12px' : '14px',
+              fontWeight: '600',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+              whiteSpace: 'nowrap',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.background = '#1d4ed8'}
+            onMouseLeave={(e) => e.currentTarget.style.background = '#2563eb'}
+          >
+            View Details
+            <FontAwesomeIcon 
+              icon={faArrowRight} 
+              className="w-3 h-3 group-hover:translate-x-1 transition-transform duration-300" 
+            />
+          </button>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+      
+      {/* Responsive Styles */}
+      <style>{`
+        .course-card {
+          animation: fadeInUp 0.6s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        /* Mobile optimizations */
+        @media (max-width: 640px) {
+          .course-card {
+            margin-bottom: 1rem;
+            border-radius: 12px !important;
+          }
+          
+          .course-card h3 {
+            font-size: 16px !important;
+            line-height: 1.3 !important;
+          }
+          
+          .course-card p {
+            font-size: 13px !important;
+            line-height: 1.5 !important;
+          }
+        }
+        
+        /* Tablet optimizations */
+        @media (min-width: 641px) and (max-width: 1024px) {
+          .course-card {
+            margin-bottom: 1.5rem;
+          }
+        }
+        
+        /* Ensure proper text truncation */
+        .course-card h3,
+        .course-card p {
+          word-wrap: break-word;
+          overflow-wrap: break-word;
+        }
+      `}</style>
+    </Link>
   );
 };
 
