@@ -142,11 +142,11 @@ const HeaderHero: React.FC<HeaderHeroProps> = ({ showCourseSearch = true, showHe
             <div className="text-start animate__animated animate__fadeInLeft">
               <p className="uppercase tracking-wide text-sm mb-2 text-[#043b6d] opacity-80">E-learning Platform</p>
               <h1 className="fw-bold text-3xl md:text-5xl mb-3 leading-tight text-[#377ec1]">
-                Learn, grow, and unlock your future<br/>with practical skills and mentorship<br/> designed for Today’s economy
+               Learn industry relevant skills, <br/>get verified assessments,<br/>and access real career opportunities.
               </h1>
               <p className="text-[#0D3B66] opacity-70 mb-4">
                 From Learning to Earning
-
+ 
               </p>
               <div className="d-flex gap-3">
                 <button className="btn fw-bold px-4 py-2 rounded shadow text-white" style={{ backgroundColor: '#0D3B66', border: 'none' }}>
