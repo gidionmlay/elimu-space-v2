@@ -24,7 +24,7 @@
     "students": 3456,
     "lessons": 8,
     "instructor": "Grace Mollel",
-    "thumbnail": "/assets/course1 .png",
+    "thumbnail": "",
     "isBestseller": true,
     "isFeatured": true
   },
@@ -53,7 +53,7 @@
     "students": 2145,
     "lessons": 10,
     "instructor": "Amina Hassan",
-    "thumbnail": "/assets/course2.png",
+    "thumbnail": "",
     "isBestseller": true,
     "isFeatured": true
   },
@@ -83,7 +83,7 @@
     "students": 2145,
     "lessons": 10,
     "instructor": "John Kinyua",
-    "thumbnail": "/assets/course3.png",
+    "thumbnail": "",
     "isBestseller": true,
     "isFeatured": true
   },
@@ -112,7 +112,7 @@
     "students": 3120,
     "lessons": 6,
     "instructor": "James Nyerere",
-    "thumbnail": "/assets/course4.png",
+    "thumbnail": "",
     "isBestseller": false,
     "isFeatured": false
   },
@@ -141,7 +141,7 @@
     "students": 2890,
     "lessons": 6,
     "instructor": "Dr. Sarah Kimani",
-    "thumbnail": "/assets/course5.png",
+    "thumbnail": "",
     "isBestseller": false,
     "isFeatured": false
   },
@@ -170,7 +170,7 @@
     "students": 4234,
     "lessons": 4,
     "instructor": "Lucy Masanja",
-    "thumbnail": "/assets/course1 .png",
+    "thumbnail": "",
     "isBestseller": false,
     "isFeatured": false
   },
@@ -199,7 +199,7 @@
     "students": 1567,
     "lessons": 8,
     "instructor": "David Mushi",
-    "thumbnail": "/assets/course2.png",
+    "thumbnail": "",
     "isBestseller": false,
     "isFeatured": false
   },
@@ -228,7 +228,7 @@
     "students": 2890,
     "lessons": 6,
     "instructor": "Joseph Mduma",
-    "thumbnail": "/assets/course3.png",
+    "thumbnail": "",
     "isBestseller": false,
     "isFeatured": false
   }

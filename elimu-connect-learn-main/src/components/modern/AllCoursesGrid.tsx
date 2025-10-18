@@ -254,11 +254,7 @@ const AllCoursesGrid: React.FC = () => {
 
           {/* Courses Grid */}
           <div style={{ flex: 1 }}>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: showFilters ? 'repeat(auto-fill, minmax(300px, 1fr))' : 'repeat(auto-fill, minmax(340px, 1fr))',
-              gap: '24px'
-            }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {courses.map(course => (
                 <CourseCard 
                   key={course.id}

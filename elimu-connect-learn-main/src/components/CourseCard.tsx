@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faUsers, faBook, faClock, faCertificate, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { formatPrice, truncateText, formatDuration } from '@/utils/formatPrice';
+import { getCourseImage, getCourseImageByTitle } from '@/utils/courseImages';
 
 export interface Course {
   id: string;
@@ -43,344 +44,98 @@ const CourseCard: React.FC<CourseCardProps> = ({
 }) => {
 
   const getCardStyles = () => {
-    const baseStyles = {
-      background: 'white',
-      borderRadius: variant === 'compact' ? '12px' : '16px',
-      overflow: 'hidden',
-      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
-      transition: 'all 0.3s ease',
-      cursor: 'pointer',
+    return {
       display: 'flex',
       flexDirection: 'column' as const,
       textDecoration: 'none',
       color: 'inherit',
-      border: '1px solid #f3f4f6'
     };
-
-    switch (variant) {
-      case 'featured':
-        return {
-          ...baseStyles,
-          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.12)',
-          border: '1px solid #F97316'
-        };
-      case 'compact':
-        return {
-          ...baseStyles,
-          borderRadius: '12px',
-          boxShadow: '0 1px 4px rgba(0, 0, 0, 0.06)'
-        };
-      default:
-        return baseStyles;
-    }
   };
 
-  const getThumbnailHeight = () => {
-    switch (variant) {
-      case 'featured': return '220px';
-      case 'compact': return '160px';
-      default: return '200px';
-    }
-  };
-
-  const getPaddingSize = () => {
-    switch (variant) {
-      case 'featured': return '24px';
-      case 'compact': return '16px';
-      default: return '20px';
-    }
-  };
 
   return (
     <Link 
       to={`/course/${course.id}`}
       style={getCardStyles()}
-      className={`course-card group hover:-translate-y-1 hover:shadow-lg transition-all duration-300 ${className}`}
+      className={`course-card group shadow-md hover:shadow-xl transition-all duration-300 rounded-xl overflow-hidden bg-white hover:scale-[1.02] ${className}`}
     >
-      {/* Thumbnail */}
-      <div style={{
-        position: 'relative',
-        height: getThumbnailHeight(),
-        background: 'linear-gradient(135deg, #F97316 0%, #EA580C 100%)',
-        overflow: 'hidden',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}>
-        {/* Course Image or Fallback */}
-        {course.thumbnail ? (
-          <img 
-            src={course.thumbnail} 
-            alt={course.title}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover'
-            }}
-          />
-        ) : (
-          <div style={{
-            width: '100%',
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'white',
-            fontSize: variant === 'compact' ? '48px' : '64px',
-            fontWeight: '900',
-            opacity: 0.2
-          }}>
-            {course.title.charAt(0)}
-          </div>
-        )}
-
-        {/* Badges */}
-        <div style={{
-          position: 'absolute',
-          top: '16px',
-          left: '16px',
-          display: 'flex',
-          gap: '8px',
-          flexWrap: 'wrap'
-        }}>
-          {course.isBestseller && (
-            <span style={{
-              padding: '6px 12px',
-              background: '#F59E0B',
-              color: 'white',
-              borderRadius: '6px',
-              fontSize: '12px',
-              fontWeight: '700',
-              textTransform: 'uppercase',
-              letterSpacing: '0.5px'
-            }}>
-              Bestseller
-            </span>
-          )}
-          <span style={{
-            padding: '6px 12px',
-            background: '#F97316',
-            color: 'white',
-            borderRadius: '6px',
-            fontSize: '12px',
-            fontWeight: '600'
-          }}>
-            {course.category}
-          </span>
-        </div>
-
-        {/* Level Badge */}
-        <div style={{
-          position: 'absolute',
-          top: '16px',
-          right: '16px',
-          padding: '6px 12px',
-          background: 'rgba(0, 0, 0, 0.7)',
-          backdropFilter: 'blur(8px)',
-          color: 'white',
-          borderRadius: '6px',
-          fontSize: '12px',
-          fontWeight: '600'
-        }}>
-          {course.level}
+      {/* Course Image */}
+      <div className="relative overflow-hidden">
+        <img 
+          src={getCourseImage(course.id, course.thumbnail) || getCourseImageByTitle(course.title)} 
+          alt={`${course.title} Course`}
+          className="object-cover w-full h-56 rounded-t-xl"
+          loading="lazy"
+          onError={(e) => {
+            console.log(`Failed to load image for course: ${course.title}`);
+            e.currentTarget.style.display = 'none';
+            e.currentTarget.nextElementSibling.style.display = 'flex';
+          }}
+        />
+        {/* Fallback when image fails to load */}
+        <div 
+          className="w-full h-56 flex items-center justify-center bg-gradient-to-br from-orange-500 to-orange-600 text-white font-black text-6xl rounded-t-xl"
+          style={{
+            display: 'none',
+          }}
+        >
+          {course.title.charAt(0)}
         </div>
       </div>
 
       {/* Content */}
-      <div style={{ 
-        padding: getPaddingSize(), 
-        flex: 1, 
-        display: 'flex', 
-        flexDirection: 'column' 
-      }}>
+      <div className="p-6 flex-1 flex flex-col">
         {/* Title */}
-        <h3 style={{
-          fontSize: variant === 'compact' ? '16px' : '20px',
-          fontWeight: '700',
-          color: '#111827',
-          marginBottom: '12px',
-          lineHeight: '1.4',
-          display: '-webkit-box',
-          WebkitLineClamp: 2,
-          WebkitBoxOrient: 'vertical',
-          overflow: 'hidden'
-        }}>
+        <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
           {course.title}
         </h3>
 
         {/* Description */}
-        <p style={{
-          fontSize: variant === 'compact' ? '13px' : '14px',
-          color: '#6B7280',
-          lineHeight: '1.6',
-          marginBottom: '16px',
-          display: '-webkit-box',
-          WebkitLineClamp: variant === 'compact' ? 2 : 3,
-          WebkitBoxOrient: 'vertical',
-          overflow: 'hidden',
-          flex: 1
-        }}>
+        <p className="text-sm text-gray-600 mb-4 line-clamp-3 flex-1">
           {truncateText(course.shortDescription, 120)}
         </p>
 
-        {/* What You'll Learn Preview */}
-        {variant !== 'compact' && (
-          <div style={{ marginBottom: '16px' }}>
-            <h4 style={{
-              fontSize: '13px',
-              fontWeight: '600',
-              color: '#111827',
-              marginBottom: '8px'
-            }}>
-              What You'll Learn:
-            </h4>
-            <ul style={{
-              fontSize: '12px',
-              color: '#6B7280',
-              paddingLeft: '16px',
-              margin: 0
-            }}>
-              {course.whatYouWillLearn.slice(0, 2).map((item, index) => (
-                <li key={index} style={{ marginBottom: '4px' }}>
-                  {item}
-                </li>
-              ))}
-              {course.whatYouWillLearn.length > 2 && (
-                <li style={{ color: '#F97316', fontWeight: '500' }}>
-                  +{course.whatYouWillLearn.length - 2} more skills
-                </li>
-              )}
-            </ul>
-          </div>
-        )}
 
         {/* Instructor */}
         {showInstructor && (
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-            marginBottom: '16px',
-            paddingBottom: '16px',
-            borderBottom: '1px solid #E5E7EB'
-          }}>
-            <div style={{
-              width: '32px',
-              height: '32px',
-              borderRadius: '50%',
-              background: '#F3F4F6',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '14px',
-              fontWeight: '600',
-              color: '#F97316'
-            }}>
+          <div className="flex items-center gap-3 mb-4 pb-4 border-b border-gray-200">
+            <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-sm font-semibold text-orange-600">
               {course.instructor.charAt(0)}
             </div>
-            <span style={{
-              fontSize: '14px',
-              color: '#6B7280',
-              fontWeight: '500'
-            }}>
+            <span className="text-sm text-gray-600 font-medium">
               {course.instructor}
             </span>
           </div>
         )}
 
         {/* Stats */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: variant === 'compact' ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
-          gap: '16px',
-          marginBottom: '20px',
-          fontSize: '13px',
-          color: '#6B7280'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <FontAwesomeIcon icon={faStar} className="w-4 h-4" style={{ color: '#F59E0B' }} />
-            <span style={{ fontWeight: '600', color: '#111827' }}>{course.rating}</span>
+        <div className="grid grid-cols-3 gap-4 mb-6 text-sm text-gray-600">
+          <div className="flex items-center gap-2">
+            <FontAwesomeIcon icon={faStar} className="w-4 h-4 text-yellow-500" />
+            <span className="font-semibold text-gray-900">{course.rating}</span>
             <span>({course.totalRatings.toLocaleString()})</span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <div className="flex items-center gap-2">
             <FontAwesomeIcon icon={faUsers} className="w-4 h-4" />
             <span>{(course.students / 1000).toFixed(1)}k</span>
           </div>
-          {variant !== 'compact' && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <FontAwesomeIcon icon={faBook} className="w-4 h-4" />
-              <span>{course.lessons} lessons</span>
-            </div>
-          )}
+          <div className="flex items-center gap-2">
+            <FontAwesomeIcon icon={faBook} className="w-4 h-4" />
+            <span>{course.lessons}</span>
+          </div>
         </div>
 
-        {/* Duration & Certification */}
-        {variant !== 'compact' && (
-          <div style={{
-            display: 'flex',
-            gap: '16px',
-            marginBottom: '16px',
-            fontSize: '12px',
-            color: '#6B7280'
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <FontAwesomeIcon icon={faClock} className="w-3 h-3" />
-              <span>{formatDuration(course.duration)}</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <FontAwesomeIcon icon={faCertificate} className="w-3 h-3" />
-              <span>Certificate</span>
-            </div>
-          </div>
-        )}
 
         {/* Price + CTA */}
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          paddingTop: '16px',
-          borderTop: '1px solid #E5E7EB'
-        }}>
+        <div className="flex justify-between items-center pt-4 border-t border-gray-200">
           <div>
-            <div style={{
-              fontSize: variant === 'compact' ? '18px' : '22px',
-              fontWeight: '700',
-              color: '#059669',
-              lineHeight: '1'
-            }}>
+            <div className="text-2xl font-bold text-emerald-600">
               {formatPrice(course.price)}
             </div>
-            {variant !== 'compact' && (
-              <div style={{
-                fontSize: '12px',
-                color: '#6B7280',
-                marginTop: '4px'
-              }}>
-                {formatDuration(course.duration)}
-              </div>
-            )}
           </div>
 
           <button 
-            className="group-hover:scale-105 transition-transform duration-300"
-            style={{
-              padding: variant === 'compact' ? '8px 16px' : '12px 24px',
-              background: '#2563eb',
-              color: 'white',
-              border: 'none',
-              borderRadius: '8px',
-              fontSize: variant === 'compact' ? '12px' : '14px',
-              fontWeight: '600',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              whiteSpace: 'nowrap',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.background = '#1d4ed8'}
-            onMouseLeave={(e) => e.currentTarget.style.background = '#2563eb'}
+            className="group-hover:scale-105 transition-transform duration-300 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold text-sm flex items-center gap-2"
           >
             View Details
             <FontAwesomeIcon 
@@ -406,38 +161,6 @@ const CourseCard: React.FC<CourseCardProps> = ({
             opacity: 1;
             transform: translateY(0);
           }
-        }
-        
-        /* Mobile optimizations */
-        @media (max-width: 640px) {
-          .course-card {
-            margin-bottom: 1rem;
-            border-radius: 12px !important;
-          }
-          
-          .course-card h3 {
-            font-size: 16px !important;
-            line-height: 1.3 !important;
-          }
-          
-          .course-card p {
-            font-size: 13px !important;
-            line-height: 1.5 !important;
-          }
-        }
-        
-        /* Tablet optimizations */
-        @media (min-width: 641px) and (max-width: 1024px) {
-          .course-card {
-            margin-bottom: 1.5rem;
-          }
-        }
-        
-        /* Ensure proper text truncation */
-        .course-card h3,
-        .course-card p {
-          word-wrap: break-word;
-          overflow-wrap: break-word;
         }
       `}</style>
     </Link>
