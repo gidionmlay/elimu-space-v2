@@ -27,7 +27,7 @@ const CoursesPage: React.FC = () => {
   };
 
   return (
-    <>
+    <div className="w-full max-w-full overflow-x-hidden">
       {/* Sticky Navbar with backdrop blur */}
       <nav className="bg-[#F5F5F5]/95 backdrop-blur-md text-[#0D3B66] sticky top-0 z-50 shadow-lg border-b border-gray-200/50">
         <div className="container d-flex justify-content-between align-items-center py-3">
@@ -129,7 +129,7 @@ const CoursesPage: React.FC = () => {
 
       {/* Reuse existing Footer */}
       <FooterRedesign />
-    </>
+    </div>
   );
 };
 

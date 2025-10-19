@@ -241,18 +241,18 @@ const TeamSection: React.FC = () => {
             </motion.div>
 
             {/* Tablet View - Show 2-3 cards with scroll */}
-            <div className="hidden sm:flex md:hidden overflow-x-auto gap-6 pb-4 snap-x snap-mandatory scrollbar-hide px-4">
+            <div className="hidden sm:flex md:hidden overflow-x-auto gap-6 pb-4 snap-x snap-mandatory scrollbar-hide px-4 w-full max-w-full">
               {teamMembers.map((member) => (
-                <div key={member.id} className="snap-center">
+                <div key={member.id} className="snap-center flex-shrink-0">
                   <TeamCard member={member} />
                 </div>
               ))}
             </div>
 
             {/* Mobile View - Show 1 card at a time */}
-            <div className="sm:hidden flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory scrollbar-hide px-4">
+            <div className="sm:hidden flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory scrollbar-hide px-4 w-full max-w-full">
               {teamMembers.map((member) => (
-                <div key={member.id} className="snap-center">
+                <div key={member.id} className="snap-center flex-shrink-0">
                   <TeamCard member={member} />
                 </div>
               ))}

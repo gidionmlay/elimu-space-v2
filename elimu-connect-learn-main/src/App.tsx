@@ -27,8 +27,9 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <FloatingActionButtons />
-          <Routes>
+          <div className="w-full max-w-full overflow-x-hidden">
+            <FloatingActionButtons />
+            <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="/course/:id" element={<CourseDetailPage />} />
@@ -70,7 +71,8 @@ const App = () => (
             />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
-          </Routes>
+            </Routes>
+          </div>
         </BrowserRouter>
       </AuthProvider>
     </TooltipProvider>

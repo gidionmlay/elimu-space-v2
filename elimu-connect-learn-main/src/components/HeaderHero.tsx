@@ -180,8 +180,12 @@ const HeaderHero: React.FC<HeaderHeroProps> = ({ showCourseSearch = true, showHe
             </div>
           </div>
 
-          {/* Course Search Section - Overlapping (only on homepage) */}
-          {showCourseSearch && <CourseSearchSection />}
+          {/* Course Search Section - Integrated (only on homepage) */}
+          {showCourseSearch && (
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-full max-w-6xl px-4 z-20">
+              <CourseSearchSection />
+            </div>
+          )}
         </>
       )}
       

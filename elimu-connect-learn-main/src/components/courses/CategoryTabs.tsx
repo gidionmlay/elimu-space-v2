@@ -63,7 +63,7 @@ export default function CategoryTabs({
       <div
         ref={scrollContainerRef}
         onScroll={checkScroll}
-        className="flex gap-3 overflow-x-auto scrollbar-hide scroll-smooth px-8"
+        className="flex gap-3 overflow-x-auto scrollbar-hide scroll-smooth px-8 w-full max-w-full"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {categories.map((category) => {

@@ -13,7 +13,7 @@ import FloatingCTAButton from '@/components/opportunities/FloatingCTAButton';
 
 const Opportunities = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden">
       {/* NAVBAR ONLY - No hero section or course search */}
       <HeaderHero showCourseSearch={false} showHeroSection={false} />
 

@@ -12,7 +12,7 @@ import FinalCTA from '@/components/about/FinalCTA';
 
 const About = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden">
       {/* REUSE EXISTING HEADER - without course search section */}
       <HeaderHero showCourseSearch={false} />
 
