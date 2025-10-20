@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
@@ -7,7 +8,9 @@ const CourseSearchSection: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const [searchError, setSearchError] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const courseCategories = [
     { value: "design", label: "Design & Creative" },
@@ -19,9 +22,48 @@ const CourseSearchSection: React.FC = () => {
     { value: "soft-skills", label: "Soft Skills & Leadership" }
   ];
 
+  // Course search mappings for smart redirects
+  const courseMappings: { [key: string]: string } = {
+    "graphics": "/course/graphic-design-branding",
+    "graphic design": "/course/graphic-design-branding",
+    "design": "/course/graphic-design-branding",
+    "digital marketing": "/course/digital-marketing-mastery",
+    "marketing": "/course/digital-marketing-mastery",
+    "business skills": "/course/entrepreneurship-business-skills",
+    "entrepreneurship": "/course/entrepreneurship-business-skills",
+    "business": "/course/entrepreneurship-business-skills",
+    "finance essentials": "/course/finance-essentials",
+    "finance": "/course/finance-essentials",
+    "career launchpad": "/course/career-launchpad",
+    "career": "/course/career-launchpad",
+    "communication": "/course/confident-communication",
+    "data analytics": "/course/data-analytics-essentials",
+    "analytics": "/course/data-analytics-essentials",
+    "leadership": "/course/soft-skills-leadership",
+    "soft skills": "/course/soft-skills-leadership"
+  };
+
   const handleSearch = () => {
-    console.log("Searching for:", searchTerm, "Category:", selectedCategory);
-    // Add your search/filter logic here
+    // Clear any previous error state
+    setSearchError(false);
+    
+    // Check if search term is empty
+    if (!searchTerm.trim()) {
+      setSearchError(true);
+      // Shake animation for empty search
+      setTimeout(() => setSearchError(false), 500);
+      return;
+    }
+
+    const lowerQuery = searchTerm.toLowerCase().trim();
+    
+    // Check if the search term matches any course
+    if (courseMappings[lowerQuery]) {
+      navigate(courseMappings[lowerQuery]);
+    } else {
+      // Redirect to courses page with request course section
+      navigate("/courses#request-course");
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -51,7 +93,7 @@ const CourseSearchSection: React.FC = () => {
   }, []);
 
   return (
-    <section className="find-course-section bg-gradient-to-r from-amber-400 to-orange-500 py-10 px-6 rounded-2xl shadow-md text-center relative overflow-visible z-10">
+    <section className="find-course-section bg-gradient-to-r from-amber-400 to-orange-500 py-10 px-6 rounded-2xl shadow-md text-center relative overflow-visible z-10 mb-16">
       {/* Main Content */}
       <div className="max-w-4xl mx-auto relative z-20">
         {/* Title */}
@@ -72,8 +114,13 @@ const CourseSearchSection: React.FC = () => {
                 onBlur={() => setIsFocused(false)}
                 onKeyDown={handleKeyDown}
                 placeholder="Search by course name..."
-                className="w-full bg-white text-gray-800 font-semibold py-3 px-5 pl-12 rounded-xl border border-gray-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all duration-300 hover:shadow-md"
+                className={`w-full bg-white text-gray-800 font-semibold py-3 px-5 pl-12 rounded-xl border shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all duration-300 hover:shadow-md ${
+                  searchError 
+                    ? "border-red-500 ring-2 ring-red-200 animate-shake" 
+                    : "border-gray-200"
+                }`}
                 aria-label="Search for courses"
+                autoFocus
               />
               <FontAwesomeIcon 
                 icon={faSearch} 
@@ -132,7 +179,7 @@ const CourseSearchSection: React.FC = () => {
           {/* Search Button */}
           <button
             onClick={handleSearch}
-            className="bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 px-8 rounded-xl shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 whitespace-nowrap"
+            className="bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 px-8 rounded-xl shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 whitespace-nowrap transform"
           >
             Search Courses
           </button>
@@ -160,6 +207,15 @@ const CourseSearchSection: React.FC = () => {
         }
         .animate-slideDown {
           animation: slideDown 0.2s ease-out;
+        }
+        
+        @keyframes shake {
+          0%, 100% { transform: translateX(0); }
+          10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
+          20%, 40%, 60%, 80% { transform: translateX(2px); }
+        }
+        .animate-shake {
+          animation: shake 0.5s ease-in-out;
         }
       `}</style>
     </section>

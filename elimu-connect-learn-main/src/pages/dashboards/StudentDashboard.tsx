@@ -134,6 +134,36 @@ const StudentDashboard: React.FC = () => {
           </Link>
         </div>
 
+        {/* My Courses (Local) */}
+        <section className="bg-white rounded-xl p-6 border border-gray-200">
+          <h2 className="text-xl font-bold text-gray-900 mb-4">My Courses</h2>
+          {(() => {
+            const stored = localStorage.getItem('enrolledCourses');
+            const enrolled = stored ? JSON.parse(stored) as any[] : [];
+            if (enrolled.length === 0) {
+              return <p className="text-gray-600">You haven’t enrolled in any courses yet.</p>;
+            }
+            return (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {enrolled.map((course) => (
+                  <div key={course.id} className="shadow rounded-xl p-4 bg-white border border-gray-100">
+                    <div className="w-full h-40 rounded-lg mb-3 overflow-hidden bg-gray-100">
+                      {course.thumbnail ? (
+                        <img src={course.thumbnail} alt={course.title} className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-gray-400 text-4xl font-bold">
+                          {course.title?.charAt(0) || 'C'}
+                        </div>
+                      )}
+                    </div>
+                    <h3 className="font-semibold text-lg text-gray-900 line-clamp-2">{course.title}</h3>
+                  </div>
+                ))}
+              </div>
+            );
+          })()}
+        </section>
+
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Total Courses */}

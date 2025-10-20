@@ -9,7 +9,7 @@ const PopularCourses: React.FC = () => {
   ).slice(0, 6);
 
   return (
-    <section className="py-16 md:py-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+    <section className="popular-courses py-16 md:py-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 mt-10">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12 animate-fadeInUp">

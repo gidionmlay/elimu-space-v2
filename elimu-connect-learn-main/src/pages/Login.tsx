@@ -82,6 +82,17 @@ const Login: React.FC = () => {
           variant: 'default',
         });
         
+        // If a course was passed in state (from Enroll Now), persist it
+        const selectedCourse = (location.state as any)?.course;
+        if (selectedCourse) {
+          const stored = localStorage.getItem('enrolledCourses');
+          const enrolled = stored ? JSON.parse(stored) : [];
+          if (!enrolled.some((c: any) => c.id === selectedCourse.id)) {
+            enrolled.push(selectedCourse);
+            localStorage.setItem('enrolledCourses', JSON.stringify(enrolled));
+          }
+        }
+
         // Get redirect path from location state or default to dashboard
         const from = (location.state as any)?.from?.pathname || '/dashboard';
         navigate(from, { replace: true });

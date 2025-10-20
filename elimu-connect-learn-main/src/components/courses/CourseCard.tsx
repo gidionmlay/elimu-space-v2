@@ -1,16 +1,23 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faUsers, faClock } from "@fortawesome/free-solid-svg-icons";
 import { Course } from "@/types/course";
+import { useNavigate } from "react-router-dom";
 
 interface CourseCardProps {
   course: Course;
 }
 
 export default function CourseCard({ course }: CourseCardProps) {
+  const navigate = useNavigate();
+
+  const handleViewDetails = () => {
+    navigate(`/course/${course.id}`, { state: { course } });
+  };
   return (
     <div
       className="group bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl hover:scale-[1.02] cursor-pointer"
       style={{ transition: "all 0.3s ease" }}
+      onClick={handleViewDetails}
     >
       {/* Thumbnail */}
       <div className="relative aspect-video bg-gray-200 overflow-hidden">
@@ -91,10 +98,11 @@ export default function CourseCard({ course }: CourseCardProps) {
             )}
           </div>
           <button
+            onClick={(e) => { e.stopPropagation(); handleViewDetails(); }}
             className="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-lg font-semibold text-sm transition-all duration-300 hover:shadow-lg"
             aria-label={`Enroll in ${course.title}`}
           >
-            Enroll Now
+            View Details
           </button>
         </div>
       </div>

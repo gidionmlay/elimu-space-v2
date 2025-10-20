@@ -1,5 +1,5 @@
-import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useMemo } from 'react';
+import { useParams, Link, useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faStar, 
@@ -14,14 +14,44 @@ import {
   faShare
 } from '@fortawesome/free-solid-svg-icons';
 import coursesData from '@/data/courses.json';
+import { useAuth } from '@/contexts/AuthContext';
 import { Course } from '@/components/CourseCard';
 import { formatPrice } from '@/utils/formatPrice';
+import { getCourseImage, getCourseImageByTitle } from '@/utils/courseImages';
 
 const CourseDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  
-  // Find the course by ID
-  const course: Course | undefined = coursesData.find(c => c.id === id);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+
+  // Prefer course from navigation state for fresher data, fallback to dataset by id
+  const stateCourse = (location.state as any)?.course as Course | undefined;
+  const course: Course | undefined = useMemo(() => {
+    if (stateCourse && stateCourse.id === id) return stateCourse;
+    return coursesData.find(c => c.id === id);
+  }, [stateCourse, id]);
+
+  const handleEnroll = () => {
+    if (!course) return;
+
+    // If not authenticated, send to login with redirect and course in state
+    if (!isAuthenticated) {
+      navigate('/login', { state: { from: { pathname: `/course/${course.id}` }, course } });
+      return;
+    }
+
+    // Persist enrolled courses in localStorage
+    const stored = localStorage.getItem('enrolledCourses');
+    const enrolled: Course[] = stored ? JSON.parse(stored) : [];
+    if (!enrolled.some(c => c.id === course.id)) {
+      enrolled.push(course);
+      localStorage.setItem('enrolledCourses', JSON.stringify(enrolled));
+    }
+
+    // Go to dashboard (courses section route handled via Dashboard nav)
+    navigate('/dashboard');
+  };
 
   if (!course) {
     return (
@@ -42,7 +72,7 @@ const CourseDetailPage: React.FC = () => {
 
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 animate-fadeIn">
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
         <div className="container mx-auto px-4 py-4">
@@ -117,18 +147,24 @@ const CourseDetailPage: React.FC = () => {
               <div className="bg-white rounded-lg shadow-lg p-6 sticky top-6">
                 {/* Course Thumbnail */}
                 <div className="relative mb-4">
-                  <div className="aspect-video bg-gradient-to-br from-[#F97316] to-[#EA580C] rounded-lg flex items-center justify-center">
-                    {course.thumbnail ? (
-                      <img 
-                        src={course.thumbnail} 
-                        alt={course.title}
-                        className="w-full h-full object-cover rounded-lg"
-                      />
-                    ) : (
-                      <span className="text-white text-6xl font-bold opacity-20">
-                        {course.title.charAt(0)}
-                      </span>
-                    )}
+                  <div className="aspect-video rounded-lg overflow-hidden">
+                    <img 
+                      src={getCourseImage(course.id, course.thumbnail) || getCourseImageByTitle(course.title)} 
+                      alt={course.title}
+                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                      onError={(e) => {
+                        console.log(`Failed to load image for course: ${course.title}`);
+                        e.currentTarget.style.display = 'none';
+                        e.currentTarget.nextElementSibling.style.display = 'flex';
+                      }}
+                    />
+                    {/* Fallback when image fails to load */}
+                    <div 
+                      className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#F97316] to-[#EA580C] text-white text-6xl font-bold opacity-20"
+                      style={{ display: 'none' }}
+                    >
+                      {course.title.charAt(0)}
+                    </div>
                   </div>
                   <button className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 rounded-lg opacity-0 hover:opacity-100 transition-opacity duration-200">
                     <FontAwesomeIcon icon={faPlay} className="w-8 h-8 text-white" />
@@ -147,7 +183,7 @@ const CourseDetailPage: React.FC = () => {
                 
                 {/* CTA Buttons */}
                 <div className="space-y-3">
-                  <button className="w-full bg-[#F97316] hover:bg-[#EA580C] text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 hover:scale-105">
+                  <button onClick={handleEnroll} className="w-full bg-[#F97316] hover:bg-[#EA580C] text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 hover:scale-105">
                     Enroll Now
                   </button>
                   <div className="flex gap-2">
@@ -248,8 +284,21 @@ const CourseDetailPage: React.FC = () => {
       
       {/* Custom Styles */}
       <style>{`
+        .animate-fadeIn {
+          animation: fadeIn 0.6s ease-out;
+        }
+        
         .animate-fadeInUp {
           animation: fadeInUp 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
         }
         
         @keyframes fadeInUp {
