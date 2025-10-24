@@ -14,7 +14,7 @@ import {
   faShare
 } from '@fortawesome/free-solid-svg-icons';
 import coursesData from '@/data/courses.json';
-import { useAuth } from '@/contexts/AuthContext';
+import Header from '@/components/Header';
 import { Course } from '@/components/CourseCard';
 import { formatPrice } from '@/utils/formatPrice';
 import { getCourseImage, getCourseImageByTitle } from '@/utils/courseImages';
@@ -73,72 +73,72 @@ const CourseDetailPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 animate-fadeIn">
-      {/* Header */}
-      <div className="bg-white shadow-sm border-b">
-        <div className="container mx-auto px-4 py-4">
-          <Link 
-            to="/courses"
-            className="inline-flex items-center gap-2 text-[#F97316] hover:text-[#EA580C] transition-colors duration-200 mb-4"
-          >
-            <FontAwesomeIcon icon={faArrowLeft} className="w-4 h-4" />
-            Back to Courses
-          </Link>
-          
-          <div className="flex flex-col lg:flex-row gap-8">
-            {/* Course Info */}
-            <div className="flex-1 animate-fadeInUp">
-              <div className="flex flex-wrap gap-2 mb-4">
-                {course.isBestseller && (
-                  <span className="px-3 py-1 bg-[#F59E0B] text-white text-sm font-bold rounded-full">
-                    Bestseller
-                  </span>
-                )}
-                <span className="px-3 py-1 bg-[#F97316] text-white text-sm font-semibold rounded-full">
-                  {course.category}
+      <Header showCourseSearch={false} showHeroSection={false} />
+      
+      {/* Course Content */}
+      <div className="container mx-auto px-4 py-8">
+        <Link 
+          to="/courses"
+          className="inline-flex items-center gap-2 text-[#F97316] hover:text-[#EA580C] transition-colors duration-200 mb-4"
+        >
+          <FontAwesomeIcon icon={faArrowLeft} className="w-4 h-4" />
+          Back to Courses
+        </Link>
+        
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Course Info */}
+          <div className="flex-1 animate-fadeInUp">
+            <div className="flex flex-wrap gap-2 mb-4">
+              {course.isBestseller && (
+                <span className="px-3 py-1 bg-[#F59E0B] text-white text-sm font-bold rounded-full">
+                  Bestseller
                 </span>
-                <span className="px-3 py-1 bg-gray-200 text-gray-700 text-sm font-semibold rounded-full">
-                  {course.level}
-                </span>
+              )}
+              <span className="px-3 py-1 bg-[#F97316] text-white text-sm font-semibold rounded-full">
+                {course.category}
+              </span>
+              <span className="px-3 py-1 bg-gray-200 text-gray-700 text-sm font-semibold rounded-full">
+                {course.level}
+              </span>
+            </div>
+            
+            <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              {course.title}
+            </h1>
+            
+            <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+              {course.description}
+            </p>
+            
+            {/* Stats */}
+            <div className="flex flex-wrap gap-6 mb-6">
+              <div className="flex items-center gap-2">
+                <FontAwesomeIcon icon={faStar} className="w-5 h-5 text-[#F59E0B]" />
+                <span className="font-semibold text-gray-900">{course.rating}</span>
+                <span className="text-gray-600">({course.totalRatings.toLocaleString()} reviews)</span>
               </div>
-              
-              <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-                {course.title}
-              </h1>
-              
-              <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                {course.description}
-              </p>
-              
-              {/* Stats */}
-              <div className="flex flex-wrap gap-6 mb-6">
-                <div className="flex items-center gap-2">
-                  <FontAwesomeIcon icon={faStar} className="w-5 h-5 text-[#F59E0B]" />
-                  <span className="font-semibold text-gray-900">{course.rating}</span>
-                  <span className="text-gray-600">({course.totalRatings.toLocaleString()} reviews)</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <FontAwesomeIcon icon={faUsers} className="w-5 h-5 text-gray-600" />
-                  <span className="text-gray-600">{(course.students / 1000).toFixed(1)}k students</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <FontAwesomeIcon icon={faBook} className="w-5 h-5 text-gray-600" />
-                  <span className="text-gray-600">{course.lessons} lessons</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <FontAwesomeIcon icon={faClock} className="w-5 h-5 text-gray-600" />
-                  <span className="text-gray-600">{course.duration}</span>
-                </div>
+              <div className="flex items-center gap-2">
+                <FontAwesomeIcon icon={faUsers} className="w-5 h-5 text-gray-600" />
+                <span className="text-gray-600">{(course.students / 1000).toFixed(1)}k students</span>
               </div>
-              
-              {/* Instructor */}
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-[#F97316] rounded-full flex items-center justify-center text-white font-bold text-lg">
-                  {course.instructor.charAt(0)}
-                </div>
-                <div>
-                  <p className="font-semibold text-gray-900">Instructor</p>
-                  <p className="text-gray-600">{course.instructor}</p>
-                </div>
+              <div className="flex items-center gap-2">
+                <FontAwesomeIcon icon={faBook} className="w-5 h-5 text-gray-600" />
+                <span className="text-gray-600">{course.lessons} lessons</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <FontAwesomeIcon icon={faClock} className="w-5 h-5 text-gray-600" />
+                <span className="text-gray-600">{course.duration}</span>
+              </div>
+            </div>
+            
+            {/* Instructor */}
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 bg-[#F97316] rounded-full flex items-center justify-center text-white font-bold text-lg">
+                {course.instructor.charAt(0)}
+              </div>
+              <div>
+                <p className="font-semibold text-gray-900">Instructor</p>
+                <p className="text-gray-600">{course.instructor}</p>
               </div>
             </div>
             

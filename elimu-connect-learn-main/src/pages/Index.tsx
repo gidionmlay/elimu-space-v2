@@ -1,4 +1,5 @@
-import HeaderHero from "@/components/HeaderHero";
+import Header from "@/components/Header";
+import HomeHero from "@/components/HomeHero";
 import PopularCourses from "@/components/PopularCourses";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import BlogSection from "@/components/BlogSection";
@@ -8,7 +9,8 @@ import FooterRedesign from "@/components/FooterRedesign";
 const Index = () => {
   return (
     <div className="min-h-screen w-full max-w-full overflow-x-hidden">
-      <HeaderHero />
+      <Header showCourseSearch={false} />
+      <HomeHero />
       <PopularCourses />
       <TestimonialsCarousel />
       <BlogSection />

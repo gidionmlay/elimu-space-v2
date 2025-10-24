@@ -240,4 +240,19 @@
     transform: translateY(-2px);
     transition: all 0.3s ease;
   }
+
+  /* Fixed header spacing adjustments */
+  .page-content {
+    padding-top: 80px;
+  }
+
+  /* Ensure all page containers account for fixed header */
+  .min-h-screen {
+    padding-top: 80px;
+  }
+
+  /* Specific adjustments for pages with fixed header */
+  .main-content {
+    margin-top: 80px;
+  }
 }

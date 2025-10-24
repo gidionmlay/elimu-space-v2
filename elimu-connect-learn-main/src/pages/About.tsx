@@ -1,5 +1,5 @@
 import React from 'react';
-import HeaderHero from '@/components/HeaderHero';
+import Header from '@/components/Header';
 import FooterRedesign from '@/components/FooterRedesign';
 import PartnerSection from '@/components/PartnerSection';
 import StickyNavigation from '@/components/about/StickyNavigation';
@@ -14,7 +14,7 @@ const About = () => {
   return (
     <div className="min-h-screen w-full max-w-full overflow-x-hidden">
       {/* REUSE EXISTING HEADER - without course search section */}
-      <HeaderHero showCourseSearch={false} />
+      <Header showCourseSearch={false} />
 
       {/* NEW SECTIONS */}
       <StickyNavigation />

@@ -1,478 +1,233 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faRocket } from '@fortawesome/free-solid-svg-icons';
+import { faPlay } from '@fortawesome/free-solid-svg-icons';
 
 const HeroSection: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
-
   return (
-    <section className="hero-section">
-      {/* Soft Gradient Background */}
-      <div className="hero-background" />
-      
-      {/* Content Container */}
-      <div className="hero-container">
-        {/* Left Side - Text Content */}
-        <div 
-          className="hero-content"
-          style={{
-            opacity: isVisible ? 1 : 0,
-            transform: isVisible ? 'translateX(0)' : 'translateX(-30px)',
-            transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
-          }}
-        >
-          {/* Main Headline */}
-          <h1 className="hero-headline">
-            Unlock Your Future: Access the Best Career-Defining Opportunities.
-          </h1>
+    <section className="relative min-h-screen bg-gradient-to-br from-[#FDF6E3] to-green-50 overflow-hidden">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 z-0">
+        {/* Decorative dots - top left */}
+        <div className="absolute top-8 left-10 w-3 h-3 bg-orange-400 rounded-full opacity-60"></div>
+        <div className="absolute top-16 left-20 w-2 h-2 bg-yellow-400 rounded-full opacity-50"></div>
+        <div className="absolute top-24 left-16 w-2.5 h-2.5 bg-orange-300 rounded-full opacity-40"></div>
+        
+        {/* Wavy line - bottom left */}
+        <div className="absolute bottom-20 left-0 w-32 h-2 bg-green-200 rounded-full opacity-30 transform rotate-12"></div>
+        
+        {/* Decorative circles */}
+        <div className="absolute top-32 right-20 w-4 h-4 border-2 border-green-300 rounded-full opacity-40"></div>
+        <div className="absolute bottom-32 right-16 w-3 h-3 border-2 border-orange-300 rounded-full opacity-30"></div>
+      </div>
 
-          {/* Supporting Description */}
-          <p className="hero-description">
-            Gain real-world skills and personalized mentorship through our platform, 
-            designed to ensure your career growth and job readiness.
-          </p>
-
-          {/* CTA Buttons */}
-          <div className="hero-cta-group">
-            <button
-              className="hero-btn hero-btn-primary"
-              onClick={() => window.location.href = '/courses'}
-              aria-label="Explore Training Programs"
+      {/* Main content container */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 lg:py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          
+          {/* Left Column - Text Content */}
+          <motion.div 
+            className="space-y-8"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            {/* Subheading */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Explore Training Programs
-              <FontAwesomeIcon icon={faArrowRight} className="hero-btn-icon" />
-            </button>
+              <p className="text-sm text-green-700 font-semibold tracking-wide uppercase">
+                Start your favourite course
+              </p>
+            </motion.div>
 
-            <button
-              className="hero-btn hero-btn-secondary"
-              onClick={() => window.location.href = '/register'}
-              aria-label="Start Your Journey"
+            {/* Main heading */}
+            <motion.h1 
+              className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-gray-900"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <FontAwesomeIcon icon={faRocket} className="hero-btn-icon" />
-              Start Your Journey
-            </button>
-          </div>
-        </div>
-
-        {/* Right Side - Animated Visual */}
-        <div 
-          className="hero-visual"
-          style={{
-            opacity: isVisible ? 1 : 0,
-            transform: isVisible ? 'translateX(0)' : 'translateX(30px)',
-            transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s'
-          }}
-        >
-          <div className="circle-container">
-            {/* Outer Dashed Circle */}
-            <div className="circle-outer">
-              {/* "Anytime" Text - Left */}
-              <span className="circle-text circle-text-anytime">
-                Anytime
+              Now learning from anywhere, and build your{' '}
+              <span className="text-green-600 relative">
+                bright career.
+                <span className="absolute -bottom-2 left-0 w-full h-1 bg-green-600 opacity-30 rounded-full"></span>
               </span>
-              
-              {/* "Anywhere" Text - Top Right */}
-              <span className="circle-text circle-text-anywhere">
-                Anywhere
-              </span>
-            </div>
+            </motion.h1>
 
-            {/* Inner Solid Circle */}
-            <div className="circle-inner">
-              <div className="circle-center-icon">
-                <svg 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="2"
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                >
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                  <polyline points="22 4 12 14.01 9 11.01" />
-                </svg>
+            {/* Supporting text */}
+            <motion.p 
+              className="text-lg text-gray-600 max-w-lg"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+            >
+              It has survived not only five centuries but also the leap into electronic typesetting.
+            </motion.p>
+
+            {/* CTA Button */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+            >
+              <button className="bg-green-600 hover:bg-green-700 text-white font-semibold rounded-full px-6 py-3 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-200">
+                Start A Course
+              </button>
+            </motion.div>
+
+            {/* Play button placeholder */}
+            <motion.div
+              className="flex items-center gap-4 mt-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.0 }}
+            >
+              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md cursor-pointer hover:shadow-lg transition-all duration-300">
+                <FontAwesomeIcon icon={faPlay} className="w-4 h-4 text-green-600 ml-1" />
               </div>
+              <span className="text-gray-600 font-medium">Watch Demo</span>
+            </motion.div>
+          </motion.div>
+
+          {/* Right Column - Hero Image and Stats */}
+          <motion.div 
+            className="relative flex justify-center lg:justify-end"
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            {/* Main hero image placeholder */}
+            <div className="relative">
+              <img
+                src="/src/assets/hero/hero-placeholder.png"
+                alt="Hero image placeholder - Student with laptop"
+                className="max-w-md w-full object-contain rounded-2xl shadow-xl"
+                onError={(e) => {
+                  // Fallback placeholder if image doesn't exist
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                  const parent = target.parentElement;
+                  if (parent) {
+                    parent.innerHTML = `
+                      <div class="w-80 h-96 bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl flex items-center justify-center text-gray-400 text-center p-8 shadow-xl">
+                        <div>
+                          <div class="w-16 h-16 bg-green-200 rounded-full flex items-center justify-center mb-4 mx-auto">
+                            <svg class="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                          </div>
+                          <p class="text-lg font-medium">Hero Image Placeholder</p>
+                          <p class="text-sm mt-2">Student with laptop</p>
+                        </div>
+                      </div>
+                    `;
+                  }
+                }}
+              />
+
+              {/* Decorative stat cards */}
+              {/* Courses stat card */}
+              <motion.div 
+                className="absolute top-8 -left-4 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-lg shadow-lg"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 1.2 }}
+              >
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                    <svg className="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                  </div>
+                  <p className="text-sm font-medium text-gray-700">1,235 Courses</p>
+                </div>
+              </motion.div>
+
+              {/* Rating stat card */}
+              <motion.div 
+                className="absolute top-16 -right-8 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-lg shadow-lg"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 1.4 }}
+              >
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center">
+                    <span className="text-lg font-bold text-gray-800">4.8</span>
+                    <div className="flex ml-1">
+                      {[...Array(5)].map((_, i) => (
+                        <svg key={i} className="w-3 h-3 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                      ))}
+                    </div>
+                  </div>
+                  <p className="text-xs text-gray-600 ml-1">Rating</p>
+                </div>
+              </motion.div>
+
+              {/* Decorative arrows */}
+              {/* Arrow pointing to courses stat */}
+              <motion.div
+                className="absolute top-20 left-8 w-16 h-8"
+                initial={{ opacity: 0, pathLength: 0 }}
+                animate={{ opacity: 1, pathLength: 1 }}
+                transition={{ duration: 1, delay: 1.6 }}
+              >
+                <svg viewBox="0 0 64 32" className="w-full h-full">
+                  <path
+                    d="M8 16 Q32 8 56 16"
+                    stroke="#fbbf24"
+                    strokeWidth="2"
+                    strokeDasharray="4,4"
+                    fill="none"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M52 12 L56 16 L52 20"
+                    stroke="#fbbf24"
+                    strokeWidth="2"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </motion.div>
+
+              {/* Arrow pointing to rating stat */}
+              <motion.div
+                className="absolute bottom-20 right-8 w-12 h-16"
+                initial={{ opacity: 0, pathLength: 0 }}
+                animate={{ opacity: 1, pathLength: 1 }}
+                transition={{ duration: 1, delay: 1.8 }}
+              >
+                <svg viewBox="0 0 48 64" className="w-full h-full">
+                  <path
+                    d="M24 48 Q24 32 24 16"
+                    stroke="#10b981"
+                    strokeWidth="2"
+                    fill="none"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M20 20 L24 16 L28 20"
+                    stroke="#10b981"
+                    strokeWidth="2"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 
-      <style jsx>{`
-        .hero-section {
-          position: relative;
-          min-height: 100vh;
-          display: flex;
-          align-items: center;
-          padding: 120px 20px 80px;
-          overflow: hidden;
-        }
-
-        .hero-background {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(
-            135deg,
-            #f0fdf4 0%,
-            #dcfce7 25%,
-            #ffffff 50%,
-            #f0fdf4 75%,
-            #e8f5e9 100%
-          );
-          z-index: 0;
-        }
-
-        .hero-background::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background-image: 
-            radial-gradient(circle at 20% 30%, rgba(30, 142, 90, 0.08) 0%, transparent 50%),
-            radial-gradient(circle at 80% 70%, rgba(30, 142, 90, 0.06) 0%, transparent 50%);
-        }
-
-        .hero-container {
-          max-width: 1280px;
-          margin: 0 auto;
-          width: 100%;
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 60px;
-          align-items: center;
-          position: relative;
-          z-index: 1;
-        }
-
-        .hero-content {
-          display: flex;
-          flex-direction: column;
-          gap: 24px;
-        }
-
-        .hero-headline {
-          font-size: 56px;
-          font-weight: 800;
-          line-height: 1.15;
-          color: #0c3b2e;
-          letter-spacing: -0.02em;
-          margin: 0;
-        }
-
-        .hero-description {
-          font-size: 20px;
-          line-height: 1.7;
-          color: #35594d;
-          margin: 0;
-          max-width: 540px;
-        }
-
-        .hero-cta-group {
-          display: flex;
-          gap: 16px;
-          margin-top: 16px;
-          flex-wrap: wrap;
-        }
-
-        .hero-btn {
-          display: inline-flex;
-          align-items: center;
-          gap: 10px;
-          padding: 16px 32px;
-          font-size: 16px;
-          font-weight: 600;
-          border-radius: 12px;
-          cursor: pointer;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          border: none;
-          outline: none;
-          position: relative;
-        }
-
-        .hero-btn:focus-visible {
-          outline: 3px solid #1e8e5a;
-          outline-offset: 2px;
-        }
-
-        .hero-btn-primary {
-          background: #1e8e5a;
-          color: white;
-          box-shadow: 0 4px 14px rgba(30, 142, 90, 0.25);
-        }
-
-        .hero-btn-primary:hover {
-          background: #16754a;
-          transform: translateY(-2px);
-          box-shadow: 0 8px 24px rgba(30, 142, 90, 0.35);
-        }
-
-        .hero-btn-primary:active {
-          transform: translateY(0);
-        }
-
-        .hero-btn-secondary {
-          background: transparent;
-          color: #1e8e5a;
-          border: 2px solid #1e8e5a;
-        }
-
-        .hero-btn-secondary:hover {
-          background: #1e8e5a;
-          color: white;
-          transform: translateY(-2px);
-          box-shadow: 0 8px 24px rgba(30, 142, 90, 0.25);
-        }
-
-        .hero-btn-secondary:active {
-          transform: translateY(0);
-        }
-
-        .hero-btn-icon {
-          width: 18px;
-          height: 18px;
-          transition: transform 0.3s ease;
-        }
-
-        .hero-btn-primary:hover .hero-btn-icon {
-          transform: translateX(4px);
-        }
-
-        .hero-btn-secondary:hover .hero-btn-icon {
-          transform: rotate(12deg) scale(1.1);
-        }
-
-        .hero-visual {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          position: relative;
-        }
-
-        .circle-container {
-          position: relative;
-          width: 400px;
-          height: 400px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        .circle-outer {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          border: 3px dashed #1e8e5a;
-          border-radius: 50%;
-          animation: rotateCircle 7s linear infinite;
-          will-change: transform;
-        }
-
-        .circle-outer:hover {
-          animation-play-state: paused;
-        }
-
-        .circle-inner {
-          position: relative;
-          width: 280px;
-          height: 280px;
-          background: linear-gradient(135deg, #1e8e5a 0%, #16754a 100%);
-          border-radius: 50%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          box-shadow: 0 20px 60px rgba(30, 142, 90, 0.25);
-          z-index: 2;
-        }
-
-        .circle-center-icon {
-          width: 100px;
-          height: 100px;
-          color: white;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        .circle-center-icon svg {
-          width: 100%;
-          height: 100%;
-          filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
-        }
-
-        .circle-text {
-          position: absolute;
-          font-size: 24px;
-          font-weight: 700;
-          color: #1e8e5a;
-          letter-spacing: 0.02em;
-          text-transform: uppercase;
-          white-space: nowrap;
-          text-shadow: 0 2px 8px rgba(255, 255, 255, 0.8);
-        }
-
-        .circle-text-anytime {
-          left: -80px;
-          top: 50%;
-          transform: translateY(-50%);
-        }
-
-        .circle-text-anywhere {
-          right: -90px;
-          top: 20%;
-          transform: translateY(-50%);
-        }
-
-        @keyframes rotateCircle {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-          .hero-container {
-            grid-template-columns: 1fr;
-            gap: 80px;
-            text-align: center;
-          }
-
-          .hero-content {
-            align-items: center;
-          }
-
-          .hero-headline {
-            font-size: 48px;
-          }
-
-          .hero-description {
-            font-size: 18px;
-          }
-
-          .hero-cta-group {
-            justify-content: center;
-          }
-
-          .circle-container {
-            width: 350px;
-            height: 350px;
-          }
-
-          .circle-inner {
-            width: 240px;
-            height: 240px;
-          }
-
-          .circle-center-icon {
-            width: 80px;
-            height: 80px;
-          }
-
-          .circle-text {
-            font-size: 20px;
-          }
-
-          .circle-text-anytime {
-            left: -70px;
-          }
-
-          .circle-text-anywhere {
-            right: -75px;
-          }
-        }
-
-        @media (max-width: 768px) {
-          .hero-section {
-            padding: 100px 16px 60px;
-          }
-
-          .hero-headline {
-            font-size: 36px;
-          }
-
-          .hero-description {
-            font-size: 16px;
-          }
-
-          .hero-btn {
-            padding: 14px 28px;
-            font-size: 15px;
-          }
-
-          .circle-container {
-            width: 300px;
-            height: 300px;
-          }
-
-          .circle-inner {
-            width: 200px;
-            height: 200px;
-          }
-
-          .circle-center-icon {
-            width: 60px;
-            height: 60px;
-          }
-
-          .circle-text {
-            font-size: 18px;
-          }
-
-          .circle-text-anytime {
-            left: -60px;
-          }
-
-          .circle-text-anywhere {
-            right: -65px;
-          }
-        }
-
-        @media (max-width: 480px) {
-          .hero-headline {
-            font-size: 28px;
-          }
-
-          .hero-description {
-            font-size: 15px;
-          }
-
-          .hero-cta-group {
-            flex-direction: column;
-            width: 100%;
-          }
-
-          .hero-btn {
-            width: 100%;
-            justify-content: center;
-          }
-
-          .circle-container {
-            width: 260px;
-            height: 260px;
-          }
-
-          .circle-inner {
-            width: 180px;
-            height: 180px;
-          }
-
-          .circle-text {
-            font-size: 16px;
-          }
-
-          .circle-text-anytime {
-            left: -50px;
-          }
-
-          .circle-text-anywhere {
-            right: -55px;
-          }
-        }
-      `}</style>
+      {/* Additional decorative elements */}
+      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-green-50/50 to-transparent pointer-events-none"></div>
     </section>
   );
 };

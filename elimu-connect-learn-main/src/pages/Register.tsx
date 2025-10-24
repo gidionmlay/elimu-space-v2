@@ -21,7 +21,7 @@ import {
 import { faGoogle, faApple } from '@fortawesome/free-brands-svg-icons';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/components/ui/use-toast';
-import HeaderHero from '@/components/HeaderHero';
+import Header from '@/components/Header';
 import FooterRedesign from '@/components/FooterRedesign';
 import imaniAvatar from '@/assets/avatars/imani_p.jpg';
 import gidiionAvatar from '@/assets/avatars/gidiion.jpg';
@@ -191,6 +191,8 @@ const Register: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#F9FAFB]">
+      <Header showCourseSearch={false} showHeroSection={false} />
+      
       {/* Hero Section */}
       <motion.section
         initial="hidden"

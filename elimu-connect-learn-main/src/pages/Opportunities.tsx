@@ -1,5 +1,5 @@
 import React from 'react';
-import HeaderHero from '@/components/HeaderHero';
+import Header from '@/components/Header';
 import FooterRedesign from '@/components/FooterRedesign';
 import PartnerSection from '@/components/PartnerSection';
 import HeroSection from '@/components/opportunities/HeroSection';
@@ -15,7 +15,7 @@ const Opportunities = () => {
   return (
     <div className="min-h-screen w-full max-w-full overflow-x-hidden">
       {/* NAVBAR ONLY - No hero section or course search */}
-      <HeaderHero showCourseSearch={false} showHeroSection={false} />
+      <Header showCourseSearch={false} showHeroSection={false} />
 
       {/* NEW HERO SECTION - Appears right after navbar */}
       <HeroSection />

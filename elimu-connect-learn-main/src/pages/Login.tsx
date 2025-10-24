@@ -14,7 +14,7 @@ import {
 import { faGoogle, faApple, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/components/ui/use-toast';
-import FooterRedesign from '@/components/FooterRedesign';
+import Header from '@/components/Header';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -146,27 +146,7 @@ const Login: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Navigation Bar - Simplified */}
-      <nav className="bg-[#F5F5F5] border-b border-[#E5E7EB] py-4 px-4">
-        <div className="container mx-auto flex items-center justify-between">
-          <Link to="/" className="flex items-center">
-            <img 
-              src="/logo.png" 
-              alt="Elimu Space" 
-              className="h-12 w-auto"
-            />
-          </Link>
-          <div className="flex items-center gap-4">
-            <span className="text-[#6B7280] text-sm">Don't have an account?</span>
-            <Link 
-              to="/register"
-              className="px-4 py-2 bg-[#F97316] text-white rounded-lg font-medium hover:bg-[#EA580C] transition-all"
-            >
-              Sign Up
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <Header showCourseSearch={false} showHeroSection={false} />
 
       {/* Main Content */}
       <div className="flex-1 flex items-center justify-center bg-gradient-to-br from-[#F9FAFB] via-white to-[#F3F4F6] py-12 px-4">
