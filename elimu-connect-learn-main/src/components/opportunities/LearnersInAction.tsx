@@ -33,7 +33,7 @@ const LearnersInAction: React.FC = () => {
             objectFit: 'cover'
           }}
         >
-          <source src="/videos/learners-studying.mp4" type="video/mp4" />
+          <source src={new URL("@/assets/articles/video/youth.mp4", import.meta.url).href} type="video/mp4" />
         </video>
       </div>
 

@@ -51,9 +51,9 @@ const HeroSection: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
             >
               Now learning from anywhere, and build your{' '}
-              <span className="text-green-600 relative">
+              <span className="text-orange-500 relative">
                 bright career.
-                <span className="absolute -bottom-2 left-0 w-full h-1 bg-green-600 opacity-30 rounded-full"></span>
+                <span className="absolute -bottom-2 left-0 w-full h-1 bg-orange-500 opacity-30 rounded-full"></span>
               </span>
             </motion.h1>
 
@@ -73,7 +73,7 @@ const HeroSection: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
             >
-              <button className="bg-green-600 hover:bg-green-700 text-white font-semibold rounded-full px-6 py-3 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-200">
+              <button className="bg-[#1a237e] hover:bg-[#0d1429] text-white font-semibold rounded-xl px-6 py-3 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-200">
                 Start A Course
               </button>
             </motion.div>
@@ -86,7 +86,7 @@ const HeroSection: React.FC = () => {
               transition={{ duration: 0.6, delay: 1.0 }}
             >
               <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md cursor-pointer hover:shadow-lg transition-all duration-300">
-                <FontAwesomeIcon icon={faPlay} className="w-4 h-4 text-green-600 ml-1" />
+                <FontAwesomeIcon icon={faPlay} className="w-4 h-4 text-orange-500 ml-1" />
               </div>
               <span className="text-gray-600 font-medium">Watch Demo</span>
             </motion.div>
@@ -102,9 +102,9 @@ const HeroSection: React.FC = () => {
             {/* Main hero image placeholder */}
             <div className="relative">
               <img
-                src="/src/assets/hero/hero-placeholder.png"
-                alt="Hero image placeholder - Student with laptop"
-                className="max-w-md w-full object-contain rounded-2xl shadow-xl"
+                src={new URL("@/assets/hero/Mask Group.png", import.meta.url).href}
+                alt="Opportunities hero image"
+                className="max-w-md w-full object-contain rounded-2xl"
                 onError={(e) => {
                   // Fallback placeholder if image doesn't exist
                   const target = e.target as HTMLImageElement;
@@ -112,15 +112,15 @@ const HeroSection: React.FC = () => {
                   const parent = target.parentElement;
                   if (parent) {
                     parent.innerHTML = `
-                      <div class="w-80 h-96 bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl flex items-center justify-center text-gray-400 text-center p-8 shadow-xl">
+                      <div class="w-80 h-96 bg-gradient-to-br from-orange-100 to-blue-100 rounded-2xl flex items-center justify-center text-gray-400 text-center p-8">
                         <div>
-                          <div class="w-16 h-16 bg-green-200 rounded-full flex items-center justify-center mb-4 mx-auto">
-                            <svg class="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                          <div class="w-16 h-16 bg-orange-200 rounded-full flex items-center justify-center mb-4 mx-auto">
+                            <svg class="w-8 h-8 text-orange-600" fill="currentColor" viewBox="0 0 24 24">
                               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                             </svg>
                           </div>
                           <p class="text-lg font-medium">Hero Image Placeholder</p>
-                          <p class="text-sm mt-2">Student with laptop</p>
+                          <p class="text-sm mt-2">Opportunities</p>
                         </div>
                       </div>
                     `;
@@ -131,14 +131,14 @@ const HeroSection: React.FC = () => {
               {/* Decorative stat cards */}
               {/* Courses stat card */}
               <motion.div 
-                className="absolute top-8 -left-4 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-lg shadow-lg"
+                className="absolute top-8 -left-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-lg"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 1.2 }}
               >
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                    <svg className="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                  <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
+                    <svg className="w-4 h-4 text-orange-600" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                     </svg>
                   </div>
@@ -148,7 +148,7 @@ const HeroSection: React.FC = () => {
 
               {/* Rating stat card */}
               <motion.div 
-                className="absolute top-16 -right-8 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-lg shadow-lg"
+                className="absolute top-16 -right-8 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-lg"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 1.4 }}

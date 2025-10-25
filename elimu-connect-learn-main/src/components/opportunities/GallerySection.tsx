@@ -2,6 +2,15 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
+// Import images
+import img1 from '@/assets/gallery of success/Inspiring the Mind, Empowering the Future.webp';
+import img2 from '@/assets/gallery of success/Chaguo sahihi kwa wanafunzi Bora..webp';
+import img3 from '@/assets/gallery of success/Enjoy Our Creative Services..webp';
+import img4 from '@/assets/gallery of success/Today we had the opportunity to have a conversation with the EAST AFRICAN BUSINESS COUNCIL (EAB.webp';
+import img5 from '@/assets/gallery of success/Today, we celebrate the incredible achievements of girls and women in ICT and recognize their v.webp';
+import img6 from '@/assets/gallery of success/🚀 Exciting News Alert! 🚀Elimu Space Organization is proud to announce the successful launch of (1).jpg';
+import img7 from '@/assets/gallery of success/🚀 Exciting News Alert! 🚀Elimu Space Organization is proud to announce the successful launch of.jpg';
+
 interface GalleryImage {
   id: string;
   src: string;
@@ -13,15 +22,13 @@ const GallerySection: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
   const images: GalleryImage[] = [
-    { id: '1', src: 'C:/Users/Gidion Mlay/Downloads/elimu space v2/elimu-connect-learn-main/src/assets/course1.png', alt: 'Students coding together', category: 'Learning' },
-    { id: '2', src: 'C:/Users/Gidion Mlay/Downloads/elimu space v2/elimu-connect-learn-main/src/assets/workshop.jpg', alt: 'Tech workshop session', category: 'Events' },
-    { id: '3', src: 'C:/Users/Gidion Mlay/Downloads/elimu space v2/elimu-connect-learn-main/src/assets/graduation.jpg', alt: 'Certificate ceremony', category: 'Achievements' },
-    { id: '4', src: 'C:/Users/Gidion Mlay/Downloads/elimu space v2/elimu-connect-learn-main/src/assets/mentorship.jpg', alt: 'Mentorship session', category: 'Mentorship' },
-    { id: '5', src: 'C:/Users/Gidion Mlay/Downloads/elimu space v2/elimu-connect-learn-main/src/assets/hackathon.jpg', alt: 'Hackathon participants', category: 'Events' },
-    { id: '6', src: 'C:/Users/Gidion Mlay/Downloads/elimu space v2/elimu-connect-learn-main/src/assets/collaboration.jpg', alt: 'Team collaboration', category: 'Learning' },
-    { id: '7', src: '/gallery/course2.png', alt: 'Student presentation', category: 'Achievements' },
-    { id: '8', src: '/gallery/networking.jpg', alt: 'Networking event', category: 'Events' },
-    { id: '9', src: '/gallery/lab.jpg', alt: 'Computer lab session', category: 'Learning' }
+    { id: '1', src: img1, alt: 'Inspiring the Mind, Empowering the Future', category: 'Inspiring' },
+    { id: '2', src: img2, alt: 'Chaguo sahihi kwa wanafunzi Bora - The right choice for the best students', category: 'Learning' },
+    { id: '3', src: img3, alt: 'Enjoy Our Creative Services', category: 'Services' },
+    { id: '4', src: img4, alt: 'Conversation with EAST AFRICAN BUSINESS COUNCIL', category: 'Partnership' },
+    { id: '5', src: img5, alt: 'Celebrating achievements of girls and women in ICT', category: 'Women in Tech' },
+    { id: '6', src: img6, alt: 'Elimu Space Organization successful launch celebration', category: 'Achievements' },
+    { id: '7', src: img7, alt: 'Elimu Space Organization launch event', category: 'Events' }
   ];
 
   const openLightbox = (index: number) => {
