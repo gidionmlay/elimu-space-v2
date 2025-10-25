@@ -58,13 +58,13 @@ const PopularCourseCard: React.FC<PopularCourseCardProps> = ({
             {lessons} lessons
           </span>
           <span className="flex items-center gap-1">
-            <FontAwesomeIcon icon={faUsers} className="w-4 h-4 text-green-600" />
+            <FontAwesomeIcon icon={faUsers} className="w-4 h-4 text-blue-800" />
             {students} students
           </span>
         </div>
 
         {/* Price */}
-        <div className="text-xl font-bold text-green-600">Free</div>
+        <div className="text-xl font-bold text-blue-800">Free</div>
       </div>
     </div>
   );

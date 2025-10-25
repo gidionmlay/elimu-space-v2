@@ -5,7 +5,7 @@ import { faPlay } from '@fortawesome/free-solid-svg-icons';
 
 const HeroSection: React.FC = () => {
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-[#FDF6E3] to-green-50 overflow-hidden">
+    <section className="relative min-h-screen bg-gradient-to-br from-[#FDF6E3] to-blue-50 overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 z-0">
         {/* Decorative dots - top left */}
@@ -14,10 +14,10 @@ const HeroSection: React.FC = () => {
         <div className="absolute top-24 left-16 w-2.5 h-2.5 bg-orange-300 rounded-full opacity-40"></div>
         
         {/* Wavy line - bottom left */}
-        <div className="absolute bottom-20 left-0 w-32 h-2 bg-green-200 rounded-full opacity-30 transform rotate-12"></div>
+        <div className="absolute bottom-20 left-0 w-32 h-2 bg-blue-200 rounded-full opacity-30 transform rotate-12"></div>
         
         {/* Decorative circles */}
-        <div className="absolute top-32 right-20 w-4 h-4 border-2 border-green-300 rounded-full opacity-40"></div>
+        <div className="absolute top-32 right-20 w-4 h-4 border-2 border-blue-300 rounded-full opacity-40"></div>
         <div className="absolute bottom-32 right-16 w-3 h-3 border-2 border-orange-300 rounded-full opacity-30"></div>
       </div>
 
@@ -38,7 +38,7 @@ const HeroSection: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <p className="text-sm text-green-700 font-semibold tracking-wide uppercase">
+              <p className="text-sm text-blue-800 font-semibold tracking-wide uppercase">
                 Start your favourite course
               </p>
             </motion.div>

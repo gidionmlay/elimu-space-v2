@@ -102,6 +102,9 @@ const Header: React.FC<HeaderProps> = ({ showCourseSearch = true, showHeroSectio
     { label: 'Contact Us', path: '/about', icon: faPhone }
   ];
 
+  // Debug: Log the explore links to ensure they're loaded
+  console.log('Explore links:', exploreLinks);
+
   // Handle search functionality
   const handleSearch = (query: string) => {
     if (!query.trim()) return;
@@ -158,13 +161,13 @@ const Header: React.FC<HeaderProps> = ({ showCourseSearch = true, showHeroSectio
             <div className="flex items-center w-full" style={{ overflow: 'visible' }}>
               
               {/* Explore Dropdown */}
-              <div className="relative mr-4" ref={exploreRef}>
+              <div className="relative mr-4 explore-dropdown" ref={exploreRef}>
                 <button
                   onClick={() => {
                     console.log('Explore clicked, current state:', isExploreOpen);
                     setIsExploreOpen(!isExploreOpen);
                   }}
-                  className="flex items-center text-gray-700 hover:text-green-600 transition-colors duration-200 font-medium"
+                  className="flex items-center text-gray-700 hover:text-blue-800 transition-colors duration-200 font-medium"
                 >
                   Explore
                   <FontAwesomeIcon 
@@ -183,25 +186,33 @@ const Header: React.FC<HeaderProps> = ({ showCourseSearch = true, showHeroSectio
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: -10, scale: 0.95 }}
                       transition={{ duration: 0.2, ease: "easeOut" }}
-                      className="absolute top-full left-0 mt-3 w-80 bg-white rounded-xl shadow-2xl border border-gray-200 py-3 z-[9999] dark:bg-gray-800 dark:border-gray-700"
+                      className="absolute left-0 mt-2 w-80 bg-white rounded-xl shadow-xl z-[9999] border border-gray-200 overflow-hidden"
                     >
-                      {exploreLinks.map((link, index) => (
-                        <motion.div
-                          key={index}
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.05 }}
-                        >
-                          <Link
-                            to={link.path}
-                            className="flex items-center px-6 py-3 text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors duration-200 border-b border-gray-100 last:border-b-0 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-green-400"
-                            onClick={() => setIsExploreOpen(false)}
+                      <ul className="flex flex-col p-2">
+                        {exploreLinks.map((link, index) => (
+                          <motion.li
+                            key={index}
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: index * 0.05 }}
+                            className="mb-1"
                           >
-                            <FontAwesomeIcon icon={link.icon} className="w-5 h-5 mr-4 text-green-500" />
-                            <span className="font-medium">{link.label}</span>
-                          </Link>
-                        </motion.div>
-                      ))}
+                            <Link
+                              to={link.path}
+                              className="flex items-center gap-4 hover:bg-blue-50 px-4 py-3 rounded-lg cursor-pointer transition-all duration-200 group bg-white"
+                              onClick={() => setIsExploreOpen(false)}
+                            >
+                              <FontAwesomeIcon 
+                                icon={link.icon} 
+                                className="w-5 h-5 text-blue-700 group-hover:scale-110 transition-transform duration-300 flex-shrink-0" 
+                              />
+                              <span className="text-gray-900 font-semibold text-base group-hover:text-blue-800 transition-colors duration-200 flex-1">
+                                {link.label}
+                              </span>
+                            </Link>
+                          </motion.li>
+                        ))}
+                      </ul>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -209,7 +220,7 @@ const Header: React.FC<HeaderProps> = ({ showCourseSearch = true, showHeroSectio
 
               {/* Search Bar */}
               <form onSubmit={handleSearchSubmit} className="flex-1">
-                <div className="flex items-center bg-white border border-gray-200 rounded-full px-4 py-2 shadow-sm focus-within:ring-2 focus-within:ring-green-500 w-full dark:bg-gray-800 dark:border-gray-600">
+                <div className="flex items-center bg-white border border-gray-200 rounded-full px-4 py-2 shadow-sm focus-within:ring-2 focus-within:ring-blue-500 w-full dark:bg-gray-800 dark:border-gray-600">
                   <input
                     type="text"
                     value={searchQuery}
@@ -220,7 +231,7 @@ const Header: React.FC<HeaderProps> = ({ showCourseSearch = true, showHeroSectio
                   />
                   <button
                     type="submit"
-                    className="ml-2 w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center hover:bg-green-700 transition-colors duration-200"
+                    className="ml-2 w-8 h-8 bg-blue-800 text-white rounded-full flex items-center justify-center hover:bg-blue-900 transition-colors duration-200"
                   >
                     <FontAwesomeIcon icon={faSearch} className="w-4 h-4" />
                   </button>
@@ -235,11 +246,11 @@ const Header: React.FC<HeaderProps> = ({ showCourseSearch = true, showHeroSectio
               <div className="flex items-center space-x-4">
                 <Link
                   to="/dashboard"
-                  className="text-gray-700 hover:text-green-600 transition-colors duration-200 font-medium dark:text-gray-200 dark:hover:text-green-400"
+                  className="text-gray-700 hover:text-blue-800 transition-colors duration-200 font-medium dark:text-gray-200 dark:hover:text-blue-400"
                 >
                   Dashboard
                 </Link>
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-orange-500 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-800 to-blue-600 flex items-center justify-center">
                   {user?.profile_image ? (
                     <img
                       src={user.profile_image}
@@ -255,13 +266,13 @@ const Header: React.FC<HeaderProps> = ({ showCourseSearch = true, showHeroSectio
               <>
                 <Link
                   to="/login"
-                  className="text-green-600 hover:text-green-700 font-medium transition-colors duration-200 dark:text-green-400 dark:hover:text-green-300"
+                  className="text-blue-800 hover:text-blue-900 font-medium transition-colors duration-200 dark:text-blue-400 dark:hover:text-blue-300"
                 >
                   Log In
                 </Link>
                 <Link
                   to="/register"
-                  className="bg-green-600 text-white px-4 py-2 rounded-full font-medium hover:bg-green-700 transition-colors duration-200"
+                  className="bg-blue-800 text-white px-4 py-2 rounded-full font-medium hover:bg-blue-900 transition-colors duration-200"
                 >
                   Join for Free
                 </Link>
@@ -271,7 +282,7 @@ const Header: React.FC<HeaderProps> = ({ showCourseSearch = true, showHeroSectio
 
           {/* Mobile Menu Button */}
           <motion.button
-            className="md:hidden p-2 text-gray-700 hover:text-green-600 focus:outline-none transition-colors duration-200 dark:text-gray-200 dark:hover:text-green-400"
+            className="md:hidden p-2 text-gray-700 hover:text-blue-800 focus:outline-none transition-colors duration-200 dark:text-gray-200 dark:hover:text-blue-400"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
             aria-expanded={isMobileMenuOpen}
@@ -319,7 +330,12 @@ const Header: React.FC<HeaderProps> = ({ showCourseSearch = true, showHeroSectio
                   damping: 15,
                   duration: 0.4
                 }}
-                className="fixed top-0 right-0 w-3/4 sm:w-2/3 h-full bg-white shadow-2xl z-50 flex flex-col justify-center p-8 md:hidden dark:bg-gray-900"
+                className="fixed top-0 right-0 w-4/5 sm:w-3/5 h-full shadow-2xl z-50 flex flex-col md:hidden"
+                style={{ 
+                  backgroundColor: '#1e3a8a',
+                  opacity: 1,
+                  background: '#1e3a8a'
+                }}
                 id="mobile-menu"
               >
                 {/* Menu Header */}
@@ -327,11 +343,11 @@ const Header: React.FC<HeaderProps> = ({ showCourseSearch = true, showHeroSectio
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 }}
-                  className="absolute top-8 right-8"
+                  className="flex justify-end p-6 border-b border-blue-800"
                 >
                   <motion.button
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="p-2 text-gray-500 hover:text-gray-700 transition-colors dark:text-gray-400 dark:hover:text-gray-200"
+                    className="p-2 text-gray-300 hover:text-white transition-colors rounded-lg hover:bg-blue-800"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     aria-label="Close menu"
@@ -341,28 +357,36 @@ const Header: React.FC<HeaderProps> = ({ showCourseSearch = true, showHeroSectio
                 </motion.div>
 
                 {/* Navigation Links */}
-                <div className="space-y-6">
-                  {[
-                    { label: 'Home', path: '/' },
-                    { label: 'Courses', path: '/courses' },
-                    { label: 'Opportunities', path: '/opportunities' },
-                    { label: 'About Us', path: '/about' },
-                  ].map(({ label, path }, index) => (
-                    <motion.div
-                      key={path}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 + 0.2 }}
-                    >
-                      <Link
-                        to={path}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="block text-lg font-semibold text-gray-800 hover:text-green-600 transition-colors duration-200 dark:text-gray-200 dark:hover:text-green-400"
+                <div className="flex-1 px-6 py-8">
+                  <nav className="space-y-2">
+                    {[
+                      { label: 'Home', path: '/', icon: 'home' },
+                      { label: 'Courses', path: '/courses', icon: 'book' },
+                      { label: 'Opportunities', path: '/opportunities', icon: 'briefcase' },
+                      { label: 'About Us', path: '/about', icon: 'info' },
+                    ].map(({ label, path, icon }, index) => (
+                      <motion.div
+                        key={path}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 + 0.2 }}
                       >
-                        {label}
-                      </Link>
-                    </motion.div>
-                  ))}
+                        <Link
+                          to={path}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="flex items-center gap-4 p-4 text-white hover:text-blue-200 hover:bg-blue-800 rounded-lg transition-all duration-200 group bg-blue-800/20"
+                        >
+                          <div className="w-8 h-8 flex items-center justify-center">
+                            <FontAwesomeIcon 
+                              icon={icon === 'home' ? faUser : icon === 'book' ? faBook : icon === 'briefcase' ? faBriefcase : faInfoCircle} 
+                              className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" 
+                            />
+                          </div>
+                          <span className="text-lg font-semibold">{label}</span>
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </nav>
                 </div>
 
                 {/* CTA Button */}
@@ -370,20 +394,21 @@ const Header: React.FC<HeaderProps> = ({ showCourseSearch = true, showHeroSectio
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 }}
-                  className="mt-10"
+                  className="p-6 border-t border-blue-800"
                 >
                   <motion.button
                     onClick={() => {
                       navigate('/register');
                       setIsMobileMenuOpen(false);
                     }}
-                    className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors duration-200 shadow-md"
+                    className="w-full bg-white text-blue-900 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-md flex items-center justify-center gap-2"
                     whileHover={{ 
                       scale: 1.02,
-                      boxShadow: "0 10px 25px -5px rgba(34, 197, 94, 0.3)"
+                      boxShadow: "0 10px 25px -5px rgba(59, 130, 246, 0.3)"
                     }}
                     whileTap={{ scale: 0.98 }}
                   >
+                    <FontAwesomeIcon icon={faUser} className="w-5 h-5" />
                     Join for Free
                   </motion.button>
                 </motion.div>
@@ -394,12 +419,12 @@ const Header: React.FC<HeaderProps> = ({ showCourseSearch = true, showHeroSectio
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.7 }}
-                    className="mt-6 space-y-4"
+                    className="px-6 pb-6"
                   >
                     <Link
                       to="/dashboard"
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="block text-center text-gray-600 hover:text-green-600 transition-colors duration-200 dark:text-gray-400 dark:hover:text-green-400"
+                      className="block text-center text-gray-300 hover:text-white transition-colors duration-200 py-2"
                     >
                       Dashboard
                     </Link>
@@ -413,11 +438,11 @@ const Header: React.FC<HeaderProps> = ({ showCourseSearch = true, showHeroSectio
 
       {/* Course Search Section (only on homepage) */}
       {showCourseSearch && location.pathname === '/' && (
-        <div className="bg-gradient-to-r from-green-50 to-orange-50 py-8 dark:from-gray-800 dark:to-gray-700">
+        <div className="bg-gradient-to-r from-blue-50 to-orange-50 py-8 dark:from-gray-800 dark:to-gray-700">
           <div className="max-w-4xl mx-auto px-6">
             <div className="text-center mb-6">
               <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 dark:text-white">
-                Find your course. <span className="text-green-600 dark:text-green-400">Start learning today.</span>
+                Find your course. <span className="text-blue-800 dark:text-blue-400">Start learning today.</span>
               </h1>
               <p className="text-lg text-gray-600 dark:text-gray-300">
                 Discover courses designed for Tanzanian learners and entrepreneurs
@@ -443,19 +468,30 @@ const Header: React.FC<HeaderProps> = ({ showCourseSearch = true, showHeroSectio
           animation: fadeIn 0.2s ease-out;
         }
 
+        /* Unified dropdown menu styles */
         .dropdown-menu {
           position: absolute !important;
           top: 100% !important;
           left: 0 !important;
           z-index: 9999 !important;
           min-width: 320px;
+          width: 320px;
           max-height: 400px;
           overflow-y: auto;
-          box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
           border-radius: 12px;
-          background: white;
+          background: white !important;
           border: 1px solid #e5e7eb;
-          margin-top: 12px !important;
+          margin-top: 8px !important;
+        }
+
+        /* Ensure dropdown items have unified background */
+        .dropdown-menu ul {
+          background: white !important;
+        }
+
+        .dropdown-menu li {
+          background: white !important;
         }
 
         /* Ensure dropdown container allows overflow */
@@ -470,7 +506,7 @@ const Header: React.FC<HeaderProps> = ({ showCourseSearch = true, showHeroSectio
             right: 0 !important;
             transform: translateX(0) !important;
             width: 90vw !important;
-            max-width: 320px !important;
+            max-width: 288px !important;
           }
         }
 
@@ -516,6 +552,67 @@ const Header: React.FC<HeaderProps> = ({ showCourseSearch = true, showHeroSectio
         /* Ensure content doesn't hide behind fixed header */
         main {
           padding-top: 80px;
+        }
+
+        /* Z-index layering system */
+        .header-container {
+          z-index: 9999;
+        }
+        
+        .dropdown-container {
+          z-index: 9999;
+        }
+        
+        .mobile-menu-container {
+          z-index: 9999;
+        }
+        
+        .hero-section {
+          z-index: 1;
+        }
+
+        /* Force dropdown above all content */
+        .explore-dropdown {
+          z-index: 9999 !important;
+          position: relative;
+        }
+
+        /* Unified dropdown item styling */
+        .dropdown-item {
+          display: flex !important;
+          align-items: center !important;
+          gap: 16px !important;
+          min-height: 44px;
+          background-color: white !important;
+          border-radius: 8px !important;
+        }
+
+        /* Ensure icons don't have separate backgrounds */
+        .dropdown-item svg {
+          background: transparent !important;
+          padding: 0 !important;
+          margin: 0 !important;
+        }
+
+        /* Ensure text has proper styling */
+        .dropdown-item span {
+          background: transparent !important;
+          display: block !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          font-size: 16px !important;
+          font-weight: 600 !important;
+          color: #111827 !important;
+          line-height: 1.5 !important;
+        }
+
+        /* Smooth transitions for all interactive elements */
+        .dropdown-item {
+          transition: all 0.2s ease-in-out;
+        }
+        
+        .mobile-menu-item {
+          transition: all 0.2s ease-in-out;
         }
       `}</style>
     </>

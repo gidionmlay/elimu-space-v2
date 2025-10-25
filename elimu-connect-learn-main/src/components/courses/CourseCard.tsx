@@ -40,7 +40,7 @@ export default function CourseCard({ course }: CourseCardProps) {
           </div>
         )}
         {course.isFree && (
-          <div className="absolute top-3 left-3 bg-green-500 text-white text-xs px-3 py-1 rounded-full font-semibold">
+          <div className="absolute top-3 left-3 bg-blue-500 text-white text-xs px-3 py-1 rounded-full font-semibold">
             Free
           </div>
         )}

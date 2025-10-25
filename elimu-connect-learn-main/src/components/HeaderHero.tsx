@@ -62,8 +62,8 @@ const HeaderHero: React.FC<HeaderHeroProps> = ({ showCourseSearch = true, showHe
               <Link
                 to={item.path}
                 className={`relative group cursor-pointer font-bold transition-all duration-300 ease-out
-                           hover:-translate-y-[2px] hover:scale-105 hover:text-[#0A2A4A] ${
-                             isActive(item.path) ? 'text-[#F97316]' : 'text-[#0D3B66]'
+                           hover:-translate-y-[2px] hover:scale-105 hover:text-blue-800 ${
+                             isActive(item.path) ? 'text-blue-800' : 'text-[#0D3B66]'
                            }`}
                 style={{ textDecoration: 'none', display: 'inline-block' }}
               >
@@ -71,7 +71,7 @@ const HeaderHero: React.FC<HeaderHeroProps> = ({ showCourseSearch = true, showHe
                 {/* Animated underline */}
                 <span className={`absolute left-1/2 -translate-x-1/2 bottom-[-4px] h-[2px]
                                transition-all duration-300 ease-out ${
-                                 isActive(item.path) ? 'w-full bg-[#F97316]' : 'w-0 bg-[#0D3B66] group-hover:w-full'
+                                 isActive(item.path) ? 'w-full bg-blue-800' : 'w-0 bg-blue-800 group-hover:w-full'
                                }`}></span>
               </Link>
             </li>
@@ -81,13 +81,13 @@ const HeaderHero: React.FC<HeaderHeroProps> = ({ showCourseSearch = true, showHe
         {/* Right Side Buttons */}
         <div className="d-flex align-items-center gap-3">
           {/* Desktop Icons */}
-          <button className="p-2 text-[#0D3B66] hover:text-[#0A2A4A] transition-colors duration-200 hidden md:block" aria-label="Search">
+          <button className="p-2 text-[#0D3B66] hover:text-blue-800 transition-colors duration-200 hidden md:block" aria-label="Search">
             <FontAwesomeIcon icon={faSearch} className="w-5 h-5" />
           </button>
           {isAuthenticated && (
             <Link 
               to="/dashboard" 
-              className="p-2 text-[#0D3B66] hover:text-[#0A2A4A] transition-colors duration-200 hidden md:block" 
+              className="p-2 text-[#0D3B66] hover:text-blue-800 transition-colors duration-200 hidden md:block" 
               aria-label="Notifications"
             >
               <FontAwesomeIcon icon={faBell} className="w-5 h-5" />
@@ -96,7 +96,7 @@ const HeaderHero: React.FC<HeaderHeroProps> = ({ showCourseSearch = true, showHe
           {isAuthenticated ? (
             <Link 
               to="/dashboard" 
-              className="p-2 text-[#0D3B66] hover:text-[#0A2A4A] transition-colors duration-200 items-center gap-2 hidden md:flex" 
+              className="p-2 text-[#0D3B66] hover:text-blue-800 transition-colors duration-200 items-center gap-2 hidden md:flex" 
               aria-label="User Account"
               title={user?.full_name || user?.username}
             >
@@ -106,7 +106,7 @@ const HeaderHero: React.FC<HeaderHeroProps> = ({ showCourseSearch = true, showHe
           ) : (
             <Link 
               to="/login" 
-              className="p-2 text-[#0D3B66] hover:text-[#0A2A4A] transition-colors duration-200 hidden md:block" 
+              className="p-2 text-[#0D3B66] hover:text-blue-800 transition-colors duration-200 hidden md:block" 
               aria-label="User Account"
             >
               <FontAwesomeIcon icon={faUser} className="w-5 h-5" />
@@ -165,6 +165,11 @@ const HeaderHero: React.FC<HeaderHeroProps> = ({ showCourseSearch = true, showHe
                   src="/gallery/banner-img.png" 
                   alt="Elimu Space Learning Platform" 
                   className="w-full h-full object-cover"
+                  onError={(e) => {
+                    // Fallback to hero placeholder if banner image doesn't exist
+                    const target = e.target as HTMLImageElement;
+                    target.src = new URL("@/assets/hero/hero-placeholder.png", import.meta.url).href;
+                  }}
                 />
               </div>
 
@@ -174,7 +179,7 @@ const HeaderHero: React.FC<HeaderHeroProps> = ({ showCourseSearch = true, showHe
                 <span className="text-xs opacity-70"><strong><b>positive feedback</b></strong></span>
               </div>
               <div className="position-absolute bottom-4 start-4 bg-white text-[#0D3B66] rounded-lg shadow p-2 px-3 small animate__animated animate__fadeInUp" style={{ boxShadow: '0 4px 12px rgba(13, 59, 102, 0.15)' }}>
-                <FontAwesomeIcon icon={faChartLine} className="w-4 h-4 text-green-500" /> 90% <br />
+                <FontAwesomeIcon icon={faChartLine} className="w-4 h-4 text-blue-500" /> 90% <br />
                 <span className="text-xs opacity-70"><strong><b>simple learn method</b></strong></span>
               </div>
             </div>

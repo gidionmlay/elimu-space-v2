@@ -119,7 +119,7 @@ const HomeHero: React.FC = () => {
 
         {/* Left Content */}
         <div className="md:w-1/2 space-y-6 relative z-10">
-          <p className="text-green-600 font-semibold uppercase tracking-wide text-sm">From Learning to Earning</p>
+          <p className="text-blue-800 font-semibold uppercase tracking-wide text-sm">From Learning to Earning</p>
           
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white leading-tight">
             Learn industry-relevant skills, get verified assessments, and access real <span className="text-orange-500">career opportunities.</span>
@@ -137,8 +137,8 @@ const HomeHero: React.FC = () => {
           {/* Stats */}
           <div className="flex items-center gap-10 pt-4">
             <div className="flex flex-col items-center">
-              <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                <FontAwesomeIcon icon={faUsers} className="text-green-600 text-sm" />
+              <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                <FontAwesomeIcon icon={faUsers} className="text-blue-800 text-sm" />
               </div>
               <p className="text-gray-700 font-semibold mt-2">1,235 learners</p>
             </div>
@@ -175,7 +175,7 @@ const HomeHero: React.FC = () => {
 
           {/* Main Image with floating animation */}
           <img
-            src="/src/assets/hero/hero-placeholder.png"
+            src={new URL("@/assets/hero/hero-placeholder.png", import.meta.url).href}
             alt="Hero image - Student with laptop"
             className="max-w-xs md:max-w-md rounded-lg object-cover animate-float"
             onError={(e) => {
@@ -187,8 +187,8 @@ const HomeHero: React.FC = () => {
                 parent.innerHTML = `
                   <div class="w-80 h-96 bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg flex items-center justify-center text-gray-400 text-center p-8 shadow-lg">
                     <div>
-                      <div class="w-16 h-16 bg-green-200 rounded-full flex items-center justify-center mb-4 mx-auto">
-                        <svg class="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                      <div class="w-16 h-16 bg-blue-200 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                         </svg>
                       </div>
@@ -210,10 +210,10 @@ const HomeHero: React.FC = () => {
           
           {/* First Column - Launch Career */}
           <div className="benefit-card flex flex-col items-center text-center space-y-4 p-6 rounded-lg hover:bg-gray-50 transition-all duration-300">
-            <div className="benefit-icon-container w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-4 hover:scale-110 transition-transform duration-300">
+            <div className="benefit-icon-container w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mb-4 hover:scale-110 transition-transform duration-300">
               <FontAwesomeIcon 
                 icon={faGraduationCap} 
-                className="text-green-600 text-3xl"
+                className="text-blue-800 text-3xl"
                 aria-label="Graduation cap icon"
               />
             </div>
@@ -227,10 +227,10 @@ const HomeHero: React.FC = () => {
 
           {/* Second Column - Gain Skills */}
           <div className="benefit-card flex flex-col items-center text-center space-y-4 p-6 rounded-lg hover:bg-gray-50 transition-all duration-300">
-            <div className="benefit-icon-container w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-4 hover:scale-110 transition-transform duration-300">
+            <div className="benefit-icon-container w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mb-4 hover:scale-110 transition-transform duration-300">
               <FontAwesomeIcon 
                 icon={faChartLine} 
-                className="text-green-600 text-3xl"
+                className="text-blue-800 text-3xl"
                 aria-label="Chart line icon"
               />
             </div>
@@ -244,10 +244,10 @@ const HomeHero: React.FC = () => {
 
           {/* Third Column - Earn Degree */}
           <div className="benefit-card flex flex-col items-center text-center space-y-4 p-6 rounded-lg hover:bg-gray-50 transition-all duration-300">
-            <div className="benefit-icon-container w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-4 hover:scale-110 transition-transform duration-300">
+            <div className="benefit-icon-container w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mb-4 hover:scale-110 transition-transform duration-300">
               <FontAwesomeIcon 
                 icon={faCertificate} 
-                className="text-green-600 text-3xl"
+                className="text-blue-800 text-3xl"
                 aria-label="Certificate icon"
               />
             </div>
