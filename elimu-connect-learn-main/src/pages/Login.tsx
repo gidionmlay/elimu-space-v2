@@ -15,6 +15,7 @@ import { faGoogle, faApple, faGithub } from '@fortawesome/free-brands-svg-icons'
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/components/ui/use-toast';
 import Header from '@/components/Header';
+import FooterRedesign from '@/components/FooterRedesign';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();

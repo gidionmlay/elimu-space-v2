@@ -389,29 +389,47 @@ const Header: React.FC<HeaderProps> = ({ showCourseSearch = true, showHeroSectio
                   </nav>
                 </div>
 
-                {/* CTA Button */}
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
-                  className="p-6 border-t border-blue-800"
-                >
-                  <motion.button
-                    onClick={() => {
-                      navigate('/register');
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="w-full bg-white text-blue-900 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-md flex items-center justify-center gap-2"
-                    whileHover={{ 
-                      scale: 1.02,
-                      boxShadow: "0 10px 25px -5px rgba(59, 130, 246, 0.3)"
-                    }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <FontAwesomeIcon icon={faUser} className="w-5 h-5" />
-                    Join for Free
-                  </motion.button>
-                </motion.div>
+                {/* Auth Buttons for non-authenticated users */}
+                {!isAuthenticated && (
+                  <>
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.6 }}
+                      className="px-6"
+                    >
+                      <Link
+                        to="/login"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="block w-full text-center text-white py-3 border border-white/30 rounded-lg hover:bg-white/10 transition-colors duration-200 font-medium"
+                      >
+                        Log In
+                      </Link>
+                    </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.65 }}
+                      className="px-6 pb-6"
+                    >
+                      <motion.button
+                        onClick={() => {
+                          navigate('/register');
+                          setIsMobileMenuOpen(false);
+                        }}
+                        className="w-full bg-white text-blue-900 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-md flex items-center justify-center gap-2"
+                        whileHover={{ 
+                          scale: 1.02,
+                          boxShadow: "0 10px 25px -5px rgba(59, 130, 246, 0.3)"
+                        }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <FontAwesomeIcon icon={faUser} className="w-5 h-5" />
+                        Join for Free
+                      </motion.button>
+                    </motion.div>
+                  </>
+                )}
 
                 {/* Auth Links for authenticated users */}
                 {isAuthenticated && (

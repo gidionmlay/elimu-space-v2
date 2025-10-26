@@ -18,6 +18,7 @@ import Header from '@/components/Header';
 import { Course } from '@/components/CourseCard';
 import { formatPrice } from '@/utils/formatPrice';
 import { getCourseImage, getCourseImageByTitle } from '@/utils/courseImages';
+import { useAuth } from '@/contexts/AuthContext';
 
 const CourseDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
